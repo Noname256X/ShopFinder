@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ShopFinder</string>
+    <string name="authorization">Авторизация</string>
+    <string name="registration">Регистрация</string>
+    <string name="register">Зарегистрируйтесь</string>
+    <string name="log_in">Авторизуйтесь</string>
+    <string name="field_nickname">Имя пользователя (никнейм)</string>
+    <string name="field_email">Почта</string>
+    <string name="field_pass">Пароль</string>
+    <string name="go_back">Вернуться назад</string>
+</resources>
