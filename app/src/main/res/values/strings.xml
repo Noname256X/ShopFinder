@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">ShopFinder</string>
+    <!--activity_main -->
     <string name="authorization">Авторизация</string>
     <string name="registration">Регистрация</string>
+
     <string name="register">Зарегистрируйтесь</string>
     <string name="log_in">Авторизуйтесь</string>
     <string name="field_nickname">Имя пользователя (никнейм)</string>
     <string name="field_email">Почта</string>
     <string name="field_pass">Пароль</string>
     <string name="go_back">Вернуться назад</string>
+    <!--search_page -->
+    <string name="product_field">Поиск товара</string>
+    <string name="filters_icon_desc">Фильтры</string>
+    <string name="search_action">Поиск</string>
 </resources>

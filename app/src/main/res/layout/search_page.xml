@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/root_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/product_entry_field"
+        android:layout_width="304.76dp"
+        android:layout_height="38.1dp"
+        android:layout_marginTop="22.86dp"
+        android:background="@drawable/search_field_background"
+        android:fontFamily="@font/jost"
+        android:hint="Поиск товара"
+        android:inputType="text"
+        android:paddingStart="40dp"
+        android:paddingEnd="60dp"
+        android:textColor="@color/text_field_gray"
+        android:textColorHint="@color/text_field_gray"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/filter_icon_but"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="@string/filters_icon_desc"
+        android:focusable="true"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@+id/product_entry_field"
+        app:layout_constraintStart_toStartOf="@+id/product_entry_field"
+        app:layout_constraintTop_toTopOf="@+id/product_entry_field"
+        app:srcCompat="@drawable/filters_icon" />
+
+    <FrameLayout
+        android:id="@+id/search_icon_green_but"
+        android:layout_width="53.33dp"
+        android:layout_height="30.48dp"
+        android:layout_marginEnd="3.81dp"
+        android:background="@drawable/search_button_background"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/product_entry_field"
+        app:layout_constraintEnd_toEndOf="@+id/product_entry_field"
+        app:layout_constraintTop_toTopOf="@+id/product_entry_field">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            app:tint="#E8E8E8"
+            app:srcCompat="@drawable/search_icon" />
+    </FrameLayout>
+
+    <!-- Блок фильтров -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/filters_container"
+        android:layout_width="342.86dp"
+        android:layout_height="304.76dp"
+        android:background="@drawable/filters_block_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/filters_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22.86dp"
+            android:fontFamily="@font/jost"
+            android:text="Фильтры для поиска товаров"
+            android:textSize="18.5sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/price_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54.1dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/jost"
+            android:text="Цена"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filters_title" />
+
+        <EditText
+            android:id="@+id/price_from"
+            android:layout_width="102.86dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="54.1dp"
+            android:layout_marginTop="15.24dp"
+            android:hint="от"
+            android:background="@drawable/price_field_background"
+            android:gravity="center"
+            android:textColor="@color/text_field_gray"
+            android:textColorHint="@color/text_light_field_gray"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:fontFamily="@font/jost"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_title" />
+
+        <EditText
+            android:id="@+id/price_to"
+            android:layout_width="102.86dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="15.24dp"
+            android:layout_marginEnd="54.1dp"
+            android:hint="до"
+            android:background="@drawable/price_field_background"
+            android:gravity="center"
+            android:textColor="@color/text_field_gray"
+            android:textColorHint="@color/text_light_field_gray"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:fontFamily="@font/jost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_title" />
+
+        <TextView
+            android:id="@+id/rating_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54.1dp"
+            android:layout_marginTop="20.19dp"
+            android:fontFamily="@font/jost"
+            android:text="Рейтинг"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_from" />
+
+        <TextView
+            android:id="@+id/rating_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="83.81dp"
+            android:layout_marginTop="11.81dp"
+            android:fontFamily="@font/jost"
+            android:text="от 4 и выше"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rating_title" />
+
+        <ImageView
+            android:id="@+id/checkbox_none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54.1dp"
+            android:layout_marginTop="15.5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating_title"
+            app:srcCompat="@drawable/empty_check_icon" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/close_button"
+            android:layout_width="79.24dp"
+            android:layout_height="30.48dp"
+            android:layout_marginBottom="11.43dp"
+            android:backgroundTint="@color/additional_color"
+            android:text="Закрыть"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            android:fontFamily="@font/jost"
+            android:padding="0dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="7.62dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
