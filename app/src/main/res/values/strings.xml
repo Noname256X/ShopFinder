@@ -14,4 +14,20 @@
     <string name="product_field">Поиск товара</string>
     <string name="filters_icon_desc">Фильтры</string>
     <string name="search_action">Поиск</string>
+    <string name="hint_text1">Чтобы найти нужный товар - напишите точное название конкретного товара, например: наушники xiaomi redmi buds 5</string>
+    <string name="hint_text2">Вы можете изменить магазины для поиска в настройках</string>
+    <string name="hint_text3">Вы можете посмотреть товары, которыми заинтересовались</string>
+    <!-- search_page card container -->
+    <string name="ozon_text">OZON</string>
+    <string name="wildberries_text">wildberries</string>
+    <string name="yandex_market_text">Яндекс Маркет</string>
+    <string name="magnit_market_text">Магнит Маркет</string>
+    <string name="dns_text">DNS</string>
+    <string name="citilink_text">СИТИЛИНК</string>
+    <string name="m_video_text">М.ВИДЕО</string>
+    <string name="aliexpress_text">AliExpress</string>
+    <string name="joom_text">ДЖУМ</string>
+    <string name="mts_shop_text">МТС SHOP</string>
+    <string name="technopark_text">ТЕХНОПАРК</string>
+    <string name="lamoda_text">lamoda</string>
 </resources>

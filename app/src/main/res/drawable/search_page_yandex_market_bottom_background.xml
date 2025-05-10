@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/marketplace_yandex_market"/>
+    <corners
+        android:bottomLeftRadius="15.24dp"
+        android:bottomRightRadius="15.24dp"/>
+</shape>
