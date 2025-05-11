@@ -194,7 +194,6 @@
         app:layout_constraintTop_toBottomOf="@id/product_entry_field"
         tools:visibility="gone">
 
-        <!-- Заголовок "Подсказки" -->
         <TextView
             android:id="@+id/hints_title"
             android:layout_width="wrap_content"
@@ -206,7 +205,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Контейнер с подсказками -->
+        <!-- Контейнер для подсказок -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -216,7 +215,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hints_title">
 
-            <!-- Подсказка 1 -->
             <RelativeLayout
                 android:layout_width="365.71dp"
                 android:layout_height="72.38dp"
@@ -243,7 +241,6 @@
                     android:textSize="14sp" />
             </RelativeLayout>
 
-            <!-- Подсказка 2 -->
             <RelativeLayout
                 android:layout_width="365.71dp"
                 android:layout_height="72.38dp"
@@ -272,7 +269,6 @@
                     android:fontFamily="@font/jost" />
             </RelativeLayout>
 
-            <!-- Подсказка 3 -->
             <RelativeLayout
                 android:layout_width="365.71dp"
                 android:layout_height="72.38dp"
@@ -302,5 +298,1462 @@
             </RelativeLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Контейнер с товарами -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/products_container"
+        android:layout_width="365.71dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="39.62dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_entry_field">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="6"
+            android:padding="4dp">
+
+            <!-- Ozon карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/search_page_ozon_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/ozon_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_ozon_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:text="@string/ozon_text"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/ozon_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/ozon_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_ozon_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ozon_header" />
+
+                <RelativeLayout
+                    android:id="@+id/ozon_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_ozon_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ozon_header">
+
+                    <TextView
+                        android:id="@+id/ozon_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/ozon_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ozon_image" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/ozon_title_text"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="45dp"-->
+                <!--                    android:paddingLeft="3dp"-->
+                <!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+                <!--                    android:textColor="@color/text_field_gray"-->
+                <!--                    android:textSize="11sp"-->
+                <!--                    app:layout_constraintBottom_toTopOf="@id/ozon_bottom"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/ozon_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/ozon_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_ozon_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        style="@style/fx_drop_shadow_for_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- WB карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/search_page_wb_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/wb_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_wb_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/wb_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/wb_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/wb_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_wb_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wb_header" />
+
+                <RelativeLayout
+                    android:id="@+id/wb_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_wb_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wb_header">
+
+                    <TextView
+                        android:id="@+id/wb_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/wb_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wb_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/wb_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/wb_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/wb_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/wb_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_wb_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Яндекс Маркет карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_yandex_market_background">
+
+                <RelativeLayout
+                    android:id="@+id/yandex_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_yandex_market_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/yandex_market_text"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/yandex_market_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/yandex_market_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_yandex_market_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yandex_header" />
+
+                <RelativeLayout
+                    android:id="@+id/yandex_market_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_yandex_market_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/yandex_header">
+
+                    <TextView
+                        android:id="@+id/yandex_market_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/yandex_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yandex_market_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/yandex_market_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/yandex_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/yandex_market_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/yandex_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_yandex_market_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/black"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Магнит Маркет карочка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_magnit_market_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/magnit_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/search_page_magnit_market_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/magnit_market_text"
+                        android:textColor="@color/marketplace_magnit_market" />
+
+                    <ImageView
+                        android:id="@+id/magnit_market_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/magnit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_magnit_market_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/magnit_header" />
+
+                <RelativeLayout
+                    android:id="@+id/magnit_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_magnit_market_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/magnit_header">
+
+                    <TextView
+                        android:id="@+id/magnit_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/magnit_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/magnit_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/magnit_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/magnit_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/magnit_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/magnit_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_magnit_market_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- DNS Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_dns_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/dns_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_dns_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/dns_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/dns_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/dns_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_dns_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dns_header" />
+
+                <RelativeLayout
+                    android:id="@+id/dns_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_dns_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dns_header">
+
+                    <TextView
+                        android:id="@+id/dns_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/dns_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dns_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dns_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/dns_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/dns_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/dns_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_dns_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Ситилинк Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_citilink_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/citilink_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_citilink_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/citilink_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/citilink_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/citilink_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_citilink_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/citilink_header" />
+
+                <RelativeLayout
+                    android:id="@+id/citilink_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_citilink_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/citilink_header">
+
+                    <TextView
+                        android:id="@+id/citilink_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/citilink_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/citilink_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/citilink_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/citilink_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/citilink_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/citilink_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_citilink_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- М.ВИДЕО Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_m_video_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/mvideo_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_m_video_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/m_video_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/mvideo_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/mvideo_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_m_video_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mvideo_header" />
+
+                <RelativeLayout
+                    android:id="@+id/mvideo_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_m_video_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mvideo_header">
+
+                    <TextView
+                        android:id="@+id/mvideo_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/mvideo_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mvideo_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/mvideo_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/mvideo_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/mvideo_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/mvideo_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_m_video_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- AliExpress Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_aliexpress_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/aliexpress_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_aliexpress_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/aliexpress_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/aliexpress_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/aliexpress_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_aliexpress_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aliexpress_header" />
+
+                <RelativeLayout
+                    android:id="@+id/aliexpress_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_aliexpress_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/aliexpress_header">
+
+                    <TextView
+                        android:id="@+id/aliexpress_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/aliexpress_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aliexpress_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/aliexpress_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/aliexpress_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/aliexpress_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/aliexpress_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_aliexpress_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Joom Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_joom_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/joom_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_joom_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/joom_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/joom_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/joom_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_joom_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/joom_header" />
+
+                <RelativeLayout
+                    android:id="@+id/joom_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_joom_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/joom_header">
+
+                    <TextView
+                        android:id="@+id/joom_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/joom_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/joom_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/joom_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/joom_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/joom_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/joom_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_joom_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- МТС Shop Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_mts_shop_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/mts_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_mts_shop_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/mts_shop_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/mts_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/mts_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_mts_shop_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mts_header" />
+
+                <RelativeLayout
+                    android:id="@+id/mts_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_mts_shop_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mts_header">
+
+                    <TextView
+                        android:id="@+id/shop_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/mts_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mts_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/mts_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/mts_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/mts_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/mts_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_mts_shop_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Технопарк Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_technopark_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/technopark_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_technopark_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/technopark_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/technopark_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/technopark_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_technopark_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/technopark_header" />
+
+                <RelativeLayout
+                    android:id="@+id/technopark_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_technopark_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/technopark_header">
+
+                    <TextView
+                        android:id="@+id/technopark_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/technopark_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/technopark_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/technopark_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/technopark_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/technopark_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/technopark_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_technopark_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Lamoda Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_lamoda_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/lamoda_header"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/search_page_lamoda_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/lamoda_text"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/lamoda_rating_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_disable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/lamoda_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:src="@drawable/search_page_lamoda_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lamoda_header" />
+
+                <RelativeLayout
+                    android:id="@+id/lamoda_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_lamoda_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lamoda_header">
+
+                    <TextView
+                        android:id="@+id/lamoda_rating_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/lamoda_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lamoda_image" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/lamoda_title_text"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="45dp"-->
+<!--                    android:paddingLeft="3dp"-->
+<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
+<!--                    android:textColor="@color/text_field_gray"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/lamoda_bottom"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/lamoda_image" />-->
+
+                <RelativeLayout
+                    android:id="@+id/lamoda_bottom"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_lamoda_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </GridLayout>
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

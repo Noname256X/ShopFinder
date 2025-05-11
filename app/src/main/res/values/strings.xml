@@ -19,7 +19,7 @@
     <string name="hint_text3">Вы можете посмотреть товары, которыми заинтересовались</string>
     <!-- search_page card container -->
     <string name="ozon_text">OZON</string>
-    <string name="wildberries_text">wildberries</string>
+    <string name="wb_text">wildberries</string>
     <string name="yandex_market_text">Яндекс Маркет</string>
     <string name="magnit_market_text">Магнит Маркет</string>
     <string name="dns_text">DNS</string>
@@ -30,4 +30,8 @@
     <string name="mts_shop_text">МТС SHOP</string>
     <string name="technopark_text">ТЕХНОПАРК</string>
     <string name="lamoda_text">lamoda</string>
+    <string name="price_example">нет цены</string>
+    <string name="initialization">инициализация</string>
+    <string name="rating_example">0</string>
+    <string name="rating_icon_desc">Рейтинг</string>
 </resources>

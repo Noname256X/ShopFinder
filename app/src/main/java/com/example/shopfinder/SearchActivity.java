@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.graphics.Rect;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -21,6 +23,8 @@ public class SearchActivity extends AppCompatActivity {
     private EditText productEntryField;
     private ConstraintLayout rootLayout;
     private ConstraintLayout filtersContainer;
+    private ConstraintLayout hintsContainer;
+    private NestedScrollView productsContainer;
     private boolean isSearchMode = false;
     private boolean isCheckboxChecked = false;
     private boolean isFormatting = false;
@@ -37,9 +41,28 @@ public class SearchActivity extends AppCompatActivity {
         ImageView checkboxNone = findViewById(R.id.checkbox_none);
         ImageView filterIconBut = findViewById(R.id.filter_icon_but);
         filtersContainer = findViewById(R.id.filters_container);
+        hintsContainer = findViewById(R.id.hints_container);
+        productsContainer = findViewById(R.id.products_container);
         View closeButton = findViewById(R.id.close_button);
+        View searchButton = findViewById(R.id.search_icon_green_but);
 
+        // Изначально скрываем контейнер с товарами и показываем подсказки
+        productsContainer.setVisibility(View.GONE);
+        hintsContainer.setVisibility(View.VISIBLE);
         filtersContainer.setVisibility(View.GONE);
+
+        // Обработчик нажатия на кнопку поиска
+        searchButton.setOnClickListener(v -> {
+            String searchText = productEntryField.getText().toString().trim();
+            if (!searchText.isEmpty()) {
+                // Скрываем подсказки и показываем товары
+                hintsContainer.setVisibility(View.GONE);
+                productsContainer.setVisibility(View.VISIBLE);
+
+                // Здесь можно добавить логику для выполнения поиска
+                // performSearch(searchText);
+            }
+        });
 
         filterIconBut.setOnClickListener(v -> {
             if (filtersContainer.getVisibility() == View.VISIBLE) {

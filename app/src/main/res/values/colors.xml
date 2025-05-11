@@ -21,4 +21,5 @@
     <color name="marketplace_mts_shop">#FE0032</color>
     <color name="marketplace_technopark">#002748</color>
     <color name="marketplace_lamoda">#000000</color>
+    <color name="rating_block">#FFED62</color>
 </resources>
