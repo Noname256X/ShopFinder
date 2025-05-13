@@ -10,6 +10,9 @@
     <string name="field_email">Почта</string>
     <string name="field_pass">Пароль</string>
     <string name="go_back">Вернуться назад</string>
+
+    <string name="log_in_button">Войти</string>
+    <string name="sing_up_button">Зарегистрироваться</string>
     <!--search_page -->
     <string name="product_field">Поиск товара</string>
     <string name="filters_icon_desc">Фильтры</string>
@@ -17,6 +20,7 @@
     <string name="hint_text1">Чтобы найти нужный товар - напишите точное название конкретного товара, например: наушники xiaomi redmi buds 5</string>
     <string name="hint_text2">Вы можете изменить магазины для поиска в настройках</string>
     <string name="hint_text3">Вы можете посмотреть товары, которыми заинтересовались</string>
+    <string name="close_button">закрыть</string>
     <!-- search_page card container -->
     <string name="ozon_text">OZON</string>
     <string name="wb_text">wildberries</string>
@@ -34,4 +38,5 @@
     <string name="initialization">инициализация</string>
     <string name="rating_example">0</string>
     <string name="rating_icon_desc">Рейтинг</string>
+    <string name="example_long_text">пример длинного текста пример длинного текста пример длинного текста</string>
 </resources>

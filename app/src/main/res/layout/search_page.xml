@@ -57,6 +57,7 @@
             android:layout_gravity="center"
             app:tint="#E8E8E8"
             app:srcCompat="@drawable/search_icon" />
+
     </FrameLayout>
 
     <!-- Блок фильтров -->
@@ -65,6 +66,8 @@
         android:layout_width="342.86dp"
         android:layout_height="304.76dp"
         android:background="@drawable/search_page_filters_block_background"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,14 +105,15 @@
             android:layout_height="26dp"
             android:layout_marginStart="54.1dp"
             android:layout_marginTop="15.24dp"
-            android:hint="от"
             android:background="@drawable/search_page_price_field_background"
+            android:fontFamily="@font/jost"
             android:gravity="center"
-            android:textColor="@color/text_field_gray"
-            android:textColorHint="@color/text_light_field_gray"
+            android:hint="от"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:fontFamily="@font/jost"
+            android:textColor="@color/text_field_gray"
+            android:textColorHint="@color/text_light_field_gray"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/price_title" />
 
@@ -127,6 +131,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:fontFamily="@font/jost"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/price_title" />
 
@@ -170,9 +175,9 @@
             android:layout_height="30.48dp"
             android:layout_marginBottom="11.43dp"
             android:backgroundTint="@color/additional_color"
-            android:text="Закрыть"
+            android:text="@string/close_button"
             android:textColor="@android:color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:fontFamily="@font/jost"
             android:padding="0dp"
             android:insetTop="0dp"
@@ -393,6 +398,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/ozon_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -402,18 +408,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ozon_image" />
 
-                <!--                <TextView-->
-                <!--                    android:id="@+id/ozon_title_text"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="45dp"-->
-                <!--                    android:paddingLeft="3dp"-->
-                <!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-                <!--                    android:textColor="@color/text_field_gray"-->
-                <!--                    android:textSize="11sp"-->
-                <!--                    app:layout_constraintBottom_toTopOf="@id/ozon_bottom"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@id/ozon_image" />-->
+                <TextView
+                    android:id="@+id/ozon_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/ozon_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ozon_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/ozon_bottom"
@@ -425,6 +432,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/ozon_price_text"
                         style="@style/fx_drop_shadow_for_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -512,6 +520,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/wb_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -521,18 +530,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/wb_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/wb_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/wb_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/wb_image" />-->
+                <TextView
+                    android:id="@+id/wb_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/wb_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wb_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/wb_bottom"
@@ -544,6 +554,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/wb_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -631,6 +642,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/yandex_market_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -640,18 +652,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/yandex_market_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/yandex_market_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/yandex_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/yandex_market_image" />-->
+                <TextView
+                    android:id="@+id/yandex_market_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/yandex_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yandex_market_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/yandex_bottom"
@@ -663,6 +676,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/yandex_market_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -752,6 +766,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/magnit_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -761,18 +776,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/magnit_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/magnit_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/magnit_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/magnit_image" />-->
+                <TextView
+                    android:id="@+id/magnit_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/magnit_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/magnit_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/magnit_bottom"
@@ -784,6 +800,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/magnit_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -871,6 +888,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/dns_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -880,18 +898,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/dns_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/dns_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/dns_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/dns_image" />-->
+                <TextView
+                    android:id="@+id/dns_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/dns_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dns_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/dns_bottom"
@@ -903,6 +922,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/dns_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -991,6 +1011,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/citilink_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -1000,18 +1021,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/citilink_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/citilink_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/citilink_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/citilink_image" />-->
+                <TextView
+                    android:id="@+id/citilink_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/citilink_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/citilink_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/citilink_bottom"
@@ -1023,6 +1045,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/citilink_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1110,6 +1133,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/mvideo_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -1119,18 +1143,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mvideo_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/mvideo_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/mvideo_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/mvideo_image" />-->
+                <TextView
+                    android:id="@+id/mvideo_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/mvideo_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mvideo_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/mvideo_bottom"
@@ -1142,6 +1167,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/mvideo_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1230,6 +1256,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/aliexpress_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -1239,18 +1266,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/aliexpress_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/aliexpress_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/aliexpress_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/aliexpress_image" />-->
+                <TextView
+                    android:id="@+id/aliexpress_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/aliexpress_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aliexpress_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/aliexpress_bottom"
@@ -1262,6 +1290,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/aliexpress_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1349,6 +1378,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/joom_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -1358,18 +1388,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/joom_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/joom_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/joom_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/joom_image" />-->
+                <TextView
+                    android:id="@+id/joom_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/joom_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/joom_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/joom_bottom"
@@ -1381,6 +1412,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/joom_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1469,6 +1501,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/mts_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -1478,18 +1511,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mts_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/mts_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/mts_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/mts_image" />-->
+                <TextView
+                    android:id="@+id/mts_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/mts_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mts_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/mts_bottom"
@@ -1501,6 +1535,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/mts_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1588,6 +1623,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/technopark_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -1597,18 +1633,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/technopark_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/technopark_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/technopark_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/technopark_image" />-->
+                <TextView
+                    android:id="@+id/technopark_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/technopark_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/technopark_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/technopark_bottom"
@@ -1620,6 +1657,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/technopark_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1709,6 +1747,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/lamoda_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
@@ -1718,18 +1757,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lamoda_image" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/lamoda_title_text"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="45dp"-->
-<!--                    android:paddingLeft="3dp"-->
-<!--                    android:text="пример длинного текста пример длинного текста пример длинного текста"-->
-<!--                    android:textColor="@color/text_field_gray"-->
-<!--                    android:textSize="11sp"-->
-<!--                    app:layout_constraintBottom_toTopOf="@id/lamoda_bottom"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/lamoda_image" />-->
+                <TextView
+                    android:id="@+id/lamoda_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/lamoda_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lamoda_image"
+                    tools:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/lamoda_bottom"
@@ -1741,6 +1781,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/lamoda_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
