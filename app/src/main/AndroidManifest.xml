@@ -25,6 +25,10 @@
         <activity android:name=".AuthorizationActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".SearchActivity" />
+        <activity android:name=".SelectedProductsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".SettingsAppActivity" />
+        <activity android:name=".UserAccountActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -13,14 +13,18 @@
 
     <string name="log_in_button">Войти</string>
     <string name="sing_up_button">Зарегистрироваться</string>
+
     <!--search_page -->
     <string name="product_field">Поиск товара</string>
     <string name="filters_icon_desc">Фильтры</string>
     <string name="search_action">Поиск</string>
     <string name="hint_text1">Чтобы найти нужный товар - напишите точное название конкретного товара, например: наушники xiaomi redmi buds 5</string>
     <string name="hint_text2">Вы можете изменить магазины для поиска в настройках</string>
-    <string name="hint_text3">Вы можете посмотреть товары, которыми заинтересовались</string>
+    <string name="hint_text3">Вы можете добавить товары в избранное, которыми заинтересовались</string>
     <string name="close_button">закрыть</string>
+    <string name="search_button_desc">Кнопка скрытого элемента навигации иконка поиска</string>
+    <string name="favorites_button_desc">Кнопка элемента навигации избранное</string>
+    <string name="settings_button_desc">Кнопка элемента навигации настройки</string>
     <!-- search_page card container -->
     <string name="ozon_text">OZON</string>
     <string name="wb_text">wildberries</string>
@@ -39,4 +43,36 @@
     <string name="rating_example">0</string>
     <string name="rating_icon_desc">Рейтинг</string>
     <string name="example_long_text">пример длинного текста пример длинного текста пример длинного текста</string>
+
+    <!-- settings_page -->
+    <string name="setting_title">Настройки</string>
+    <string name="user_icon_desc">Иконка кнопки аккаунта</string>
+    <string name="settings_icon_desc">Иконка кнопки настроек</string>
+    <string name="account_text">Аккаунт</string>
+    <string name="settings_app_text">Настройки приложения</string>
+
+    <!-- user_account_page -->
+    <string name="change_data_desc">Иконка смены пароля</string>
+    <string name="delete_account_desc">Иконка удаления аккаунта</string>
+    <string name="change_pass_but">Сменить пароль</string>
+    <string name="delete_account_but">Удалить аккаунт</string>
+    <string name="nickname_text">Ваш никнейм:</string>
+    <string name="name_text">name</string>
+    <string name="are_you_sure_delete_text">Вы уверены, что хотите удалить свой аккаунт?</string>
+    <string name="yes_text">Да</string>
+    <string name="no_text">Нет</string>
+
+    <!-- selected_products_page -->
+    <string name="selected_search_field">Поиск товара в избранном</string>
+    <string name="info_nothing_here">Здесь пока ничего нет</string>
+    <string name="add_favorites_text">добавьте товар в избранное</string>
+
+    <!-- selected_products_page -->
+    <string name="see_marketplace_text">Какие маркетплейсы вы хотите видеть при поиске товаров?</string>
+    <string name="arrow_left_desc">Стрелка влево</string>
+    <string name="arrow_right_desc">Стрелка вправо</string>
+    <string name="countProductsTitle">Количество товаров на выводе</string>
+
+
+
 </resources>

@@ -1,6 +1,7 @@
 package com.example.shopfinder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -11,8 +12,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.graphics.Rect;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.TextView;
 
@@ -72,6 +75,10 @@ public class SearchActivity extends AppCompatActivity {
     private TextView ozonRatingText, wbRatingText, YandexMarketRatingText, MagnitMarketRatingText, dnsRatingText, CitilinkRatingText, MVideoRatingText, AliexpressRatingText, JoomRatingText, Mts_Shop_RatingText, TechnoparkRatingText, LamodaRatingText;
     private ImageView ozonImage, wbImage, YandexMarketImage, MagnitMarketImage, dnsImage, CitilinkImage, MVideoImage, AliexpressImage, JoomImage, Mts_ShopImage, TechnoparkImage, LamodaImage;
 
+    //navbar
+    private RelativeLayout mainFullNavigationButton;
+    private ImageButton mainNavigationButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +95,14 @@ public class SearchActivity extends AppCompatActivity {
         productsContainer = findViewById(R.id.products_container);
         View closeButton = findViewById(R.id.close_button);
         View searchButton = findViewById(R.id.search_icon_green_but);
+
+        //navbar
+        mainNavigationButton = findViewById(R.id.mainNavigationButton);
+        mainFullNavigationButton = findViewById(R.id.mainFullNavigationButton);
+        ImageView leftIcon = findViewById(R.id.left_icon);
+        ImageView centerIcon = findViewById(R.id.center_icon);
+        ImageView rightIcon = findViewById(R.id.right_icon);
+
 
         //FeedbackText
         ozonFeedbackText = findViewById(R.id.ozon_feedback_text);
@@ -163,14 +178,41 @@ public class SearchActivity extends AppCompatActivity {
         hintsContainer.setVisibility(View.VISIBLE);
         filtersContainer.setVisibility(View.GONE);
 
+
+        mainFullNavigationButton.setVisibility(View.GONE);
+
+        mainNavigationButton.setOnClickListener(v -> {
+            mainNavigationButton.setVisibility(View.GONE);
+            mainFullNavigationButton.setVisibility(View.VISIBLE);
+        });
+
+        leftIcon.setOnClickListener(v -> {
+            Intent selectedProductsIntent = new Intent(SearchActivity.this, SelectedProductsActivity.class);
+            startActivity(selectedProductsIntent);
+        });
+
+        centerIcon.setOnClickListener(v -> {
+            // Обработка клика по поиску
+        });
+
+        rightIcon.setOnClickListener(v -> {
+            Intent settingsIntent = new Intent(SearchActivity.this, SettingsActivity.class);
+            startActivity(settingsIntent);
+        });
+
+        productEntryField.setOnClickListener(v -> {
+            activateSearchMode();
+            hideFullNavigation();
+        });
+
         searchButton.setOnClickListener(v -> {
             String searchText = productEntryField.getText().toString().trim();
             if (!searchText.isEmpty()) {
                 hintsContainer.setVisibility(View.GONE);
                 productsContainer.setVisibility(View.VISIBLE);
-
                 performSearch(searchText);
             }
+            hideFullNavigation();
         });
 
         filterIconBut.setOnClickListener(v -> {
@@ -179,6 +221,8 @@ public class SearchActivity extends AppCompatActivity {
             } else {
                 filtersContainer.setVisibility(View.VISIBLE);
             }
+            hideFullNavigation();
+            deactivateSearchMode();
         });
 
         closeButton.setOnClickListener(v -> {
@@ -197,16 +241,29 @@ public class SearchActivity extends AppCompatActivity {
         productEntryField.setFocusableInTouchMode(false);
         productEntryField.setOnClickListener(v -> activateSearchMode());
 
-        rootLayout.setOnTouchListener((v, event) -> {
-            if (isSearchMode && event.getAction() == MotionEvent.ACTION_DOWN) {
-                Rect outRect = new Rect();
-                productEntryField.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
-                    deactivateSearchMode();
-                    return true;
+        rootLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Rect editTextRect = new Rect();
+                    productEntryField.getGlobalVisibleRect(editTextRect);
+
+                    Rect navRect = new Rect();
+                    mainFullNavigationButton.getGlobalVisibleRect(navRect);
+
+                    if (!editTextRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                        deactivateSearchMode();
+                    }
+
+                    if (!navRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                        if (mainFullNavigationButton.getVisibility() == View.VISIBLE) {
+                            mainFullNavigationButton.setVisibility(View.GONE);
+                            mainNavigationButton.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
+                return false;
             }
-            return false;
         });
 
         checkboxNone.setOnClickListener(v -> {
@@ -215,6 +272,14 @@ public class SearchActivity extends AppCompatActivity {
                     R.drawable.checkbox_icon : R.drawable.empty_check_icon);
         });
 
+    }
+
+
+    private void hideFullNavigation() {
+        if (mainFullNavigationButton.getVisibility() == View.VISIBLE) {
+            mainFullNavigationButton.setVisibility(View.GONE);
+            mainNavigationButton.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupPriceField(EditText field, String prefix) {
@@ -461,6 +526,10 @@ public class SearchActivity extends AppCompatActivity {
                 });
             }
 
+            private int convertDpToPx(float dp) {
+                return (int) (dp * getResources().getDisplayMetrics().density);
+            }
+
             @Override
             public void onDataReceived(String marketplace, ProductData data) {
                 runOnUiThread(() -> {
@@ -472,6 +541,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_ozon_image_stroke)
                                     .error(R.drawable.search_page_ozon_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -489,6 +560,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_wb_image_stroke)
                                     .error(R.drawable.search_page_wb_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -506,6 +579,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_yandex_market_image_stroke)
                                     .error(R.drawable.search_page_yandex_market_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -523,6 +598,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_magnit_market_image_stroke)
                                     .error(R.drawable.search_page_magnit_market_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -540,6 +617,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_dns_image_stroke)
                                     .error(R.drawable.search_page_dns_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -557,6 +636,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_citilink_image_stroke)
                                     .error(R.drawable.search_page_citilink_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -574,6 +655,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_m_video_image_stroke)
                                     .error(R.drawable.search_page_m_video_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -591,6 +674,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_aliexpress_image_stroke)
                                     .error(R.drawable.search_page_aliexpress_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -608,6 +693,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_joom_image_stroke)
                                     .error(R.drawable.search_page_joom_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -625,6 +712,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_mts_shop_image_stroke)
                                     .error(R.drawable.search_page_mts_shop_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -642,6 +731,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_technopark_image_stroke)
                                     .error(R.drawable.search_page_technopark_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -659,6 +750,8 @@ public class SearchActivity extends AppCompatActivity {
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
+                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
+                                    .fitCenter()
                                     .placeholder(R.drawable.search_page_lamoda_image_stroke)
                                     .error(R.drawable.search_page_lamoda_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -684,7 +777,7 @@ public class SearchActivity extends AppCompatActivity {
 
         webSocketClient.connect();
     }
-    
+
     private String getIPAddress() {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {

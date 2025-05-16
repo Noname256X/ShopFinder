@@ -21,14 +21,12 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_page);
 
-        // Инициализация полей
         nicknameField = findViewById(R.id.nicknameField);
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
         signUpButton = findViewById(R.id.sing_in_button);
         goBackButton = findViewById(R.id.reg_go_back_but);
 
-        // Обработчик кнопки регистрации
         signUpButton.setOnClickListener(v -> {
             String nickname = nicknameField.getText().toString().trim();
             String email = emailField.getText().toString().trim();
@@ -39,7 +37,6 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-        // Обработчик кнопки "Назад"
         goBackButton.setOnClickListener(v -> {
             Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
             startActivity(intent);
@@ -67,7 +64,6 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void registerUser(String nickname, String email, String password) {
-        // Создаем JSON объект с данными пользователя
         JSONObject json = new JSONObject();
         try {
             json.put("nickname", nickname);
@@ -77,7 +73,6 @@ public class RegistrationActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Создаем запрос
         RequestBody body = RequestBody.create(
                 json.toString(),
                 MediaType.parse("application/json; charset=utf-8")
@@ -88,7 +83,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 .post(body)
                 .build();
 
-        // Отправляем запрос асинхронно
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

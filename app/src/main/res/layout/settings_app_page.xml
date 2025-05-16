@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/settingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26.67dp"
+        android:fontFamily="@font/jost"
+        android:text="@string/setting_title"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/settingsAppTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22.86dp"
+        android:fontFamily="@font/jost"
+        android:text="@string/settings_app_text"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
+
+    <TextView
+        android:id="@+id/marketplaceQuestion"
+        android:layout_width="292.57dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/jost"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/see_marketplace_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/centralContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/centralContainer"
+        android:layout_width="292.57dp"
+        android:layout_height="371.81dp"
+        android:background="@drawable/search_field_background"
+        app:layout_constraintBottom_toTopOf="@+id/goBackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsAppTitle">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5.525dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_ozon">
+
+                    <Button
+                        android:id="@+id/ozonButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical|start"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/ozon_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"/>
+
+                    <Switch
+                        android:id="@+id/ozonSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_wb">
+
+                    <Button
+                        android:id="@+id/wildberriesButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical|start"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/wb_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"/>
+
+                    <Switch
+                        android:id="@+id/wildberriesSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_yandex_market">
+
+                    <Button
+                        android:id="@+id/YandexMarketButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical|start"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/yandex_market_text"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"/>
+
+                    <Switch
+                        android:id="@+id/YandexMarketSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/white">
+
+                    <Button
+                        android:id="@+id/MagnitMarkettButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical|start"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/magnit_market_text"
+                        android:textColor="@color/marketplace_magnit_market"
+                        android:textSize="16sp"/>
+
+                    <Switch
+                        android:id="@+id/MagnitMarketSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_dns">
+
+                    <Button
+                        android:id="@+id/dnsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="47.62dp"
+                        android:backgroundTint="@color/marketplace_dns"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/dns_text"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:cornerRadius="8dp" />
+
+                    <Switch
+                        android:id="@+id/dnsSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_citilink">
+
+                    <Button
+                        android:id="@+id/CitilinkButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="47.62dp"
+                        android:backgroundTint="@color/marketplace_citilink"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/citilink_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:cornerRadius="8dp" />
+
+                    <Switch
+                        android:id="@+id/CitilinkSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_m_video">
+
+                    <Button
+                        android:id="@+id/MVideoButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="47.62dp"
+                        android:backgroundTint="@color/marketplace_m_video"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/m_video_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:cornerRadius="8dp" />
+
+                    <Switch
+                        android:id="@+id/MVideoSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_aliexpress">
+
+                    <Button
+                        android:id="@+id/AliexpressButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="47.62dp"
+                        android:backgroundTint="@color/marketplace_aliexpress"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/aliexpress_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:cornerRadius="8dp" />
+
+                    <Switch
+                        android:id="@+id/AliexpressSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_joom">
+
+                    <Button
+                        android:id="@+id/JoomButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="47.62dp"
+                        android:backgroundTint="@color/marketplace_joom"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/joom_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:cornerRadius="8dp" />
+
+                    <Switch
+                        android:id="@+id/JoomSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_mts_shop">
+
+                    <Button
+                        android:id="@+id/Shop_mtsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="47.62dp"
+                        android:backgroundTint="@color/marketplace_mts_shop"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/mts_shop_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:cornerRadius="8dp" />
+
+                    <Switch
+                        android:id="@+id/Shop_mtsSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/marketplace_technopark">
+
+                    <Button
+                        android:id="@+id/TechnoparkButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="47.62dp"
+                        android:backgroundTint="@color/marketplace_technopark"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/technopark_text"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:cornerRadius="8dp" />
+
+                    <Switch
+                        android:id="@+id/TechnoparkSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="47.62dp"
+                    android:layout_marginBottom="9.9dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:backgroundTint="@color/white">
+
+                    <Button
+                        android:id="@+id/LamodaButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="47.62dp"
+                        android:backgroundTint="@color/white"
+                        android:fontFamily="@font/jost"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="19.05dp"
+                        android:text="@string/lamoda_text"
+                        android:textColor="@color/marketplace_lamoda"
+                        android:textSize="16sp"
+                        app:cornerRadius="8dp" />
+
+                    <Switch
+                        android:id="@+id/LamodaSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:thumbTint="@android:color/white" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/countProductsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/jost"
+        android:text="@string/countProductsTitle"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/centralContainer" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/quantityBlock"
+        android:layout_width="281.52dp"
+        android:layout_height="47.62dp"
+        android:backgroundTint="@color/additional_color"
+        android:background="@drawable/rounded_button_background"
+        app:layout_constraintTop_toBottomOf="@+id/centralContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="39.62dp">
+
+        <FrameLayout
+            android:id="@+id/leftArrowButton"
+            android:layout_width="114.29dp"
+            android:layout_height="47.62dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_left_icon"
+                android:layout_gravity="center"
+                android:contentDescription="@string/arrow_left_desc"/>
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/pageNumberInput"
+            android:layout_width="53.33dp"
+            android:layout_height="38.1dp"
+            android:background="@drawable/mini_block_field_in_button_settings_app"
+            android:gravity="center"
+            android:inputType="number"
+            android:textSize="14sp"
+            android:fontFamily="@font/jost"
+            android:text="8"
+            android:focusable="false"
+            android:cursorVisible="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <FrameLayout
+            android:id="@+id/rightArrowButton"
+            android:layout_width="114.29dp"
+            android:layout_height="47.62dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_icon"
+                android:layout_gravity="center"
+                android:contentDescription="@string/arrow_right_desc"/>
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/goBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="41.14dp"
+        android:width="190.48dp"
+        android:height="38.1dp"
+        android:backgroundTint="@color/but_gray"
+        android:fontFamily="@font/jost"
+        android:text="@string/go_back"
+        android:textColor="@color/text_field_gray"
+        app:cornerRadius="15.24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

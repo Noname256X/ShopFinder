@@ -14,7 +14,7 @@
         android:layout_marginTop="22.86dp"
         android:background="@drawable/search_field_background"
         android:fontFamily="@font/jost"
-        android:hint="Поиск товара"
+        android:hint="@string/product_field"
         android:inputType="text"
         android:paddingStart="40dp"
         android:paddingEnd="60dp"
@@ -237,12 +237,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="72.38dp"
-                    android:layout_centerVertical="true"
+                    android:layout_alignParentTop="true"
                     android:layout_marginStart="87.62dp"
                     android:fontFamily="@font/jost"
+                    android:layout_marginTop="-5dp"
+                    android:lineSpacingExtra="-5sp"
                     android:text="@string/hint_text1"
                     android:textColor="@color/text_field_gray"
-                    android:lineSpacingExtra="-6sp"
                     android:textSize="14sp" />
             </RelativeLayout>
 
@@ -282,12 +283,12 @@
                 android:paddingVertical="12dp">
 
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="26.67dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="12.6dp"
-                    app:srcCompat="@drawable/eye_for_hint_icon" />
+                    android:layout_marginStart="19.05dp"
+                    app:srcCompat="@drawable/favorites_for_navigation_icon" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -314,7 +315,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/product_entry_field">
+        app:layout_constraintTop_toBottomOf="@id/product_entry_field"
+        tools:visibility="visible">
 
         <GridLayout
             android:layout_width="match_parent"
@@ -365,9 +367,10 @@
 
                 <ImageView
                     android:id="@+id/ozon_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_ozon_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -488,9 +491,10 @@
 
                 <ImageView
                     android:id="@+id/wb_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_wb_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -610,9 +614,10 @@
 
                 <ImageView
                     android:id="@+id/yandex_market_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_yandex_market_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -734,9 +739,10 @@
 
                 <ImageView
                     android:id="@+id/magnit_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_magnit_market_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -856,9 +862,10 @@
 
                 <ImageView
                     android:id="@+id/dns_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_dns_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -979,9 +986,10 @@
 
                 <ImageView
                     android:id="@+id/citilink_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_citilink_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1101,9 +1109,10 @@
 
                 <ImageView
                     android:id="@+id/mvideo_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_m_video_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1224,9 +1233,10 @@
 
                 <ImageView
                     android:id="@+id/aliexpress_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_aliexpress_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1346,9 +1356,10 @@
 
                 <ImageView
                     android:id="@+id/joom_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_joom_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1469,9 +1480,10 @@
 
                 <ImageView
                     android:id="@+id/mts_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_mts_shop_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1591,9 +1603,10 @@
 
                 <ImageView
                     android:id="@+id/technopark_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_technopark_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1715,9 +1728,10 @@
 
                 <ImageView
                     android:id="@+id/lamoda_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-3dp"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/search_page_lamoda_image_stroke"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1796,6 +1810,71 @@
 
         </GridLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ImageButton
+        android:id="@+id/mainNavigationButton"
+        android:layout_width="53.33dp"
+        android:layout_height="53.33dp"
+        android:layout_marginBottom="28.57dp"
+        android:background="@drawable/rounded_button_background2"
+        android:contentDescription="@string/search_button_desc"
+        android:scaleType="center"
+        android:src="@drawable/search_for_navigation_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible"/>
+
+    <RelativeLayout
+        android:id="@+id/mainFullNavigationButton"
+        android:layout_width="232.38dp"
+        android:layout_height="45.71dp"
+        android:layout_marginBottom="28.57dp"
+        android:background="@drawable/full_navigation_block"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="gone">
+
+        <ImageView
+            android:id="@+id/center_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/selected_search_for_navigation_icon"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/search_button_desc" />
+
+        <ImageView
+            android:id="@+id/left_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/center_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="23dp"
+            android:src="@drawable/favorites_for_navigation_icon"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/favorites_button_desc" />
+
+        <ImageView
+            android:id="@+id/right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/center_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/settings_for_navigation_icon"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_button_desc" />
+    </RelativeLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
