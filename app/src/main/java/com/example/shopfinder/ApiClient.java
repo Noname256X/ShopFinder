@@ -1,8 +1,10 @@
 package com.example.shopfinder;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
@@ -35,13 +37,15 @@ public class ApiClient {
                 .build();
     }
 
-    public void searchProducts(String ipAddress, String query, ApiCallback<SearchResponse> callback) {
+    public void searchProducts(String ipAddress, String query, int pageNumber, List<String> marketplaces, ApiCallback<SearchResponse> callback) {
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put("ip", ipAddress);
             requestBody.put("query", query);
+            requestBody.put("pageNumber", pageNumber);
+            requestBody.put("marketplaces", new JSONArray(marketplaces));
         } catch (JSONException e) {
             e.printStackTrace();
         }

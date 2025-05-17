@@ -71,6 +71,8 @@ public class SelectedProductsActivity extends AppCompatActivity {
         });
 
         centerIcon.setOnClickListener(v -> {
+            mainFullNavigationButton.setVisibility(View.GONE);
+            mainNavigationButton.setVisibility(View.VISIBLE);
         });
 
         rightIcon.setOnClickListener(v -> {

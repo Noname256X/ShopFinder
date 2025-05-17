@@ -327,6 +327,7 @@
 
             <!-- Ozon карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ozon_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -342,6 +343,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/ozon_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -405,6 +407,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/ozon_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -450,6 +453,7 @@
 
             <!-- WB карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/wb_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -466,6 +470,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/wb_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -529,6 +534,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/wb_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -573,6 +579,7 @@
 
             <!-- Яндекс Маркет карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/yandex_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -589,6 +596,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/yandex_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -652,6 +660,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/yandex_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -696,6 +705,7 @@
 
             <!-- Магнит Маркет карочка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/magnit_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -714,6 +724,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/magnit_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -777,6 +788,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/magnit_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -821,6 +833,7 @@
 
             <!-- DNS Карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dns_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -837,6 +850,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/dns_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -900,6 +914,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/dns_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -944,6 +959,7 @@
 
             <!-- Ситилинк Карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/citilink_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -961,6 +977,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/citilink_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1023,6 +1040,7 @@
                     android:id="@+id/citilink_feedback_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:text="@string/initialization"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/citilink_bottom"
@@ -1068,6 +1086,7 @@
 
             <!-- М.ВИДЕО Карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mvideo_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -1084,6 +1103,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/mvideo_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1147,6 +1167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/mvideo_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1191,6 +1212,7 @@
 
             <!-- AliExpress Карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/aliexpress_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -1208,6 +1230,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/aliexpress_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1271,6 +1294,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/aliexpress_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1315,6 +1339,7 @@
 
             <!-- Joom Карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/joom_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -1331,6 +1356,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/joom_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1394,6 +1420,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/joom_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1438,6 +1465,7 @@
 
             <!-- МТС Shop Карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mts_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -1455,6 +1483,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/mts_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1518,6 +1547,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/mts_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1562,6 +1592,7 @@
 
             <!-- Технопарк Карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/technopark_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -1578,6 +1609,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/technopark_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1641,6 +1673,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/technopark_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1685,6 +1718,7 @@
 
             <!-- Lamoda Карточка -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lamoda_block"
                 android:layout_width="171.43dp"
                 android:layout_height="247.62dp"
                 android:layout_margin="2dp"
@@ -1703,6 +1737,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/lamoda_logo_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -1766,6 +1801,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/initialization"
+                    android:textAlignment="center"
                     android:textColor="@color/text_field_gray"
                     app:layout_constraintBottom_toTopOf="@id/lamoda_bottom"
                     app:layout_constraintEnd_toEndOf="parent"

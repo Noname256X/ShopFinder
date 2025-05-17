@@ -2,6 +2,12 @@ package com.example.shopfinder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -19,8 +25,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
@@ -29,8 +37,10 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.security.MessageDigest;
 import java.text.NumberFormat;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.*;
@@ -39,7 +49,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.shopfinder.CustomWebSocketListener;
 import com.example.shopfinder.ProductData;
 
@@ -54,6 +68,20 @@ public class SearchActivity extends AppCompatActivity {
     private boolean isSearchMode = false;
     private boolean isCheckboxChecked = false;
     private boolean isFormatting = false;
+
+    //LogoText
+    private TextView ozon_logo_text;
+    private TextView wb_logo_text;
+    private TextView yandex_logo_text;
+    private TextView magnit_logo_text;
+    private TextView dns_logo_text;
+    private TextView citilink_logo_text;
+    private TextView mvideo_logo_text;
+    private TextView aliexpress_logo_text;
+    private TextView joom_logo_text;
+    private TextView mts_logo_text;
+    private TextView technopark_logo_text;
+    private TextView lamoda_logo_text;
 
     // private_FeedbackText
     private TextView ozonFeedbackText;
@@ -95,6 +123,20 @@ public class SearchActivity extends AppCompatActivity {
         productsContainer = findViewById(R.id.products_container);
         View closeButton = findViewById(R.id.close_button);
         View searchButton = findViewById(R.id.search_icon_green_but);
+
+        //LogoText
+        ozon_logo_text = findViewById(R.id.ozon_logo_text);
+        wb_logo_text = findViewById(R.id.wb_logo_text);
+        yandex_logo_text = findViewById(R.id.yandex_logo_text);
+        magnit_logo_text = findViewById(R.id.magnit_logo_text);
+        dns_logo_text = findViewById(R.id.dns_logo_text);
+        citilink_logo_text = findViewById(R.id.citilink_logo_text);
+        mvideo_logo_text = findViewById(R.id.mvideo_logo_text);
+        aliexpress_logo_text = findViewById(R.id.aliexpress_logo_text);
+        joom_logo_text = findViewById(R.id.joom_logo_text);
+        mts_logo_text = findViewById(R.id.mts_logo_text);
+        technopark_logo_text = findViewById(R.id.technopark_logo_text);
+        lamoda_logo_text = findViewById(R.id.lamoda_logo_text);
 
         //navbar
         mainNavigationButton = findViewById(R.id.mainNavigationButton);
@@ -192,7 +234,8 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         centerIcon.setOnClickListener(v -> {
-            // Обработка клика по поиску
+            mainFullNavigationButton.setVisibility(View.GONE);
+            mainNavigationButton.setVisibility(View.VISIBLE);
         });
 
         rightIcon.setOnClickListener(v -> {
@@ -208,8 +251,19 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(v -> {
             String searchText = productEntryField.getText().toString().trim();
             if (!searchText.isEmpty()) {
+                if (SettingsAppActivity.areAllSwitchesDisabled(SearchActivity.this)) {
+                    Intent intent = new Intent(SearchActivity.this, SettingsAppActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(SearchActivity.this, "Включите хотя бы один маркетплейс для поиска", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                setTextViewsColorGray();
+
                 hintsContainer.setVisibility(View.GONE);
                 productsContainer.setVisibility(View.VISIBLE);
+
+                setCardStylesInactive();
                 performSearch(searchText);
             }
             hideFullNavigation();
@@ -271,15 +325,250 @@ public class SearchActivity extends AppCompatActivity {
             checkboxNone.setImageResource(isCheckboxChecked ?
                     R.drawable.checkbox_icon : R.drawable.empty_check_icon);
         });
-
     }
 
+    private void setCardStylesInactive() {
+        // Ozon
+        ConstraintLayout ozonBlock = findViewById(R.id.ozon_block);
+        ozonBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout ozonHeader = findViewById(R.id.ozon_header);
+        ozonHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView ozonImage = findViewById(R.id.ozon_image);
+        ozonImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout ozonBottom = findViewById(R.id.ozon_bottom);
+        ozonBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // Wildberries
+        ConstraintLayout wbBlock = findViewById(R.id.wb_block);
+        wbBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout wbHeader = findViewById(R.id.wb_header);
+        wbHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView wbImage = findViewById(R.id.wb_image);
+        wbImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout wbBottom = findViewById(R.id.wb_bottom);
+        wbBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // Yandex Market
+        ConstraintLayout yandexBlock = findViewById(R.id.yandex_block);
+        yandexBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout yandexHeader = findViewById(R.id.yandex_header);
+        yandexHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView yandexImage = findViewById(R.id.yandex_market_image);
+        yandexImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout yandexBottom = findViewById(R.id.yandex_bottom);
+        yandexBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // MagnitMarket
+        ConstraintLayout magnitBlock = findViewById(R.id.magnit_block);
+        magnitBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout magnitHeader = findViewById(R.id.magnit_header);
+        magnitHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView magnitImage = findViewById(R.id.magnit_image);
+        magnitImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout magnitBottom = findViewById(R.id.magnit_bottom);
+        magnitBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // DNS
+        ConstraintLayout dnsBlock = findViewById(R.id.dns_block);
+        dnsBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout dnsHeader = findViewById(R.id.dns_header);
+        dnsHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView dnsImage = findViewById(R.id.dns_image);
+        dnsImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout dnsBottom = findViewById(R.id.dns_bottom);
+        dnsBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // Citilink
+        ConstraintLayout citilinkBlock = findViewById(R.id.citilink_block);
+        citilinkBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout citilinkHeader = findViewById(R.id.citilink_header);
+        citilinkHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView citilinkImage = findViewById(R.id.citilink_image);
+        citilinkImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout citilinkBottom = findViewById(R.id.citilink_bottom);
+        citilinkBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // M_Video
+        ConstraintLayout mvideoBlock = findViewById(R.id.mvideo_block);
+        mvideoBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout mvideoHeader = findViewById(R.id.mvideo_header);
+        mvideoHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView mvideoImage = findViewById(R.id.mvideo_image);
+        mvideoImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout mvideoBottom = findViewById(R.id.mvideo_bottom);
+        mvideoBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // Aliexpress
+        ConstraintLayout aliexpressBlock = findViewById(R.id.aliexpress_block);
+        aliexpressBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout aliexpressHeader = findViewById(R.id.aliexpress_header);
+        aliexpressHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView aliexpressImage = findViewById(R.id.aliexpress_image);
+        aliexpressImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout aliexpressBottom = findViewById(R.id.aliexpress_bottom);
+        aliexpressBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // Joom
+        ConstraintLayout joomBlock = findViewById(R.id.joom_block);
+        joomBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout joomHeader = findViewById(R.id.joom_header);
+        joomHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView joomImage = findViewById(R.id.joom_image);
+        joomImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout joomBottom = findViewById(R.id.joom_bottom);
+        joomBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // Shop_mts
+        ConstraintLayout mtsBlock = findViewById(R.id.mts_block);
+        mtsBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout mtsHeader = findViewById(R.id.mts_header);
+        mtsHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView mtsImage = findViewById(R.id.mts_image);
+        mtsImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout mtsBottom = findViewById(R.id.mts_bottom);
+        mtsBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // Technopark
+        ConstraintLayout technoparkBlock = findViewById(R.id.technopark_block);
+        technoparkBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout technoparkHeader = findViewById(R.id.technopark_header);
+        technoparkHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView technoparkImage = findViewById(R.id.technopark_image);
+        technoparkImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout technoparkBottom = findViewById(R.id.technopark_bottom);
+        technoparkBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+
+        // Lamoda
+        ConstraintLayout lamodaBlock = findViewById(R.id.lamoda_block);
+        lamodaBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
+
+        RelativeLayout lamodaHeader = findViewById(R.id.lamoda_header);
+        lamodaHeader.setBackgroundResource(R.drawable.search_page_inactive_header_block);
+
+        ImageView lamodaImage = findViewById(R.id.lamoda_image);
+        lamodaImage.setImageResource(R.drawable.search_page_no_pictures_gray);
+
+        RelativeLayout lamodaBottom = findViewById(R.id.lamoda_bottom);
+        lamodaBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
+    }
+
+    private void hideProductElements() {
+        findViewById(R.id.ozon_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.ozon_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.ozon_price_text).setVisibility(View.GONE);
+        findViewById(R.id.ozon_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.wb_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.wb_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.wb_price_text).setVisibility(View.GONE);
+        findViewById(R.id.wb_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.yandex_market_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.yandex_market_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.yandex_market_price_text).setVisibility(View.GONE);
+        findViewById(R.id.yandex_market_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.magnit_market_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.magnit_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.magnit_price_text).setVisibility(View.GONE);
+        findViewById(R.id.magnit_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.dns_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.dns_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.dns_price_text).setVisibility(View.GONE);
+        findViewById(R.id.dns_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.citilink_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.citilink_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.citilink_price_text).setVisibility(View.GONE);
+        findViewById(R.id.citilink_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.mvideo_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.mvideo_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.mvideo_price_text).setVisibility(View.GONE);
+        findViewById(R.id.mvideo_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.aliexpress_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.aliexpress_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.aliexpress_price_text).setVisibility(View.GONE);
+        findViewById(R.id.aliexpress_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.joom_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.joom_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.joom_price_text).setVisibility(View.GONE);
+        findViewById(R.id.joom_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.mts_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.mts_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.mts_price_text).setVisibility(View.GONE);
+        findViewById(R.id.mts_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.technopark_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.technopark_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.technopark_price_text).setVisibility(View.GONE);
+        findViewById(R.id.technopark_title_text).setVisibility(View.GONE);
+
+        findViewById(R.id.lamoda_rating_icon).setVisibility(View.GONE);
+        findViewById(R.id.lamoda_rating_block).setVisibility(View.GONE);
+        findViewById(R.id.lamoda_price_text).setVisibility(View.GONE);
+        findViewById(R.id.lamoda_title_text).setVisibility(View.GONE);
+    }
 
     private void hideFullNavigation() {
         if (mainFullNavigationButton.getVisibility() == View.VISIBLE) {
             mainFullNavigationButton.setVisibility(View.GONE);
             mainNavigationButton.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setTextViewsColorGray() {
+        int grayColor = getResources().getColor(R.color.text_field_gray);
+
+        ozon_logo_text.setTextColor(grayColor);
+        wb_logo_text.setTextColor(grayColor);
+        yandex_logo_text.setTextColor(grayColor);
+        magnit_logo_text.setTextColor(grayColor);
+        dns_logo_text.setTextColor(grayColor);
+        citilink_logo_text.setTextColor(grayColor);
+        mvideo_logo_text.setTextColor(grayColor);
+        aliexpress_logo_text.setTextColor(grayColor);
+        joom_logo_text.setTextColor(grayColor);
+        mts_logo_text.setTextColor(grayColor);
+        technopark_logo_text.setTextColor(grayColor);
+        lamoda_logo_text.setTextColor(grayColor);
     }
 
     private void setupPriceField(EditText field, String prefix) {
@@ -472,24 +761,46 @@ public class SearchActivity extends AppCompatActivity {
         void onFailure(String error);
     }
 
-    private void performSearch(String searchText) {
-        String ipAddress = getIPAddress();
+    private String truncateText(String text) {
+        if (text.length() > 65) {
+            return text.substring(0, 65) + "...";
+        }
+        return text;
+    }
 
-        ApiClient apiClient = new ApiClient();
+    public class InnerStrokeTransformation extends BitmapTransformation {
+        private final int strokeWidth;
+        private final int strokeColor;
 
-        apiClient.searchProducts(ipAddress, searchText, new ApiClient.ApiCallback<ApiClient.SearchResponse>() {
-            @Override
-            public void onSuccess(ApiClient.SearchResponse response) {
-                setupWebSocketConnection(ipAddress);
-            }
+        public InnerStrokeTransformation(int strokeWidth, int strokeColor) {
+            this.strokeWidth = strokeWidth;
+            this.strokeColor = strokeColor;
+        }
 
-            @Override
-            public void onFailure(String error) {
-                runOnUiThread(() -> {
-                    Toast.makeText(SearchActivity.this, "Ошибка поиска: " + error, Toast.LENGTH_SHORT).show();
-                });
-            }
-        });
+        @Override
+        protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+            Bitmap bitmap = Bitmap.createBitmap(outWidth, outHeight, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+
+            // Рисуем исходное изображение
+            Paint paint = new Paint();
+            paint.setAntiAlias(true);
+            RectF rectF = new RectF(0, 0, outWidth, outHeight);
+            canvas.drawBitmap(toTransform, null, rectF, paint);
+
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(strokeWidth);
+            paint.setColor(strokeColor);
+            rectF.inset(strokeWidth / 2f, strokeWidth / 2f); // Смещаем прямоугольник внутрь
+            canvas.drawRoundRect(rectF, 0, 0, paint);
+
+            return bitmap;
+        }
+
+        @Override
+        public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+            messageDigest.update(("InnerStrokeTransformation" + strokeWidth + strokeColor).getBytes());
+        }
     }
 
     private void setupWebSocketConnection(String ipAddress) {
@@ -533,16 +844,42 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onDataReceived(String marketplace, ProductData data) {
                 runOnUiThread(() -> {
+
                     switch (marketplace) {
                         case "Ozon":
-                            ozonTitleText.setText(data.title);
+                            ConstraintLayout ozonBlock = findViewById(R.id.ozon_block);
+                            ozonBlock.setBackgroundResource(R.drawable.search_page_ozon_block_background);
+
+                            RelativeLayout ozonHeader = findViewById(R.id.ozon_header);
+                            ozonHeader.setBackgroundResource(R.drawable.search_page_ozon_header_background);
+
+                            ImageView ozonImage = findViewById(R.id.ozon_image);
+                            ozonImage.setBackgroundResource(R.drawable.search_page_ozon_image_stroke);
+
+                            RelativeLayout ozonBottom = findViewById(R.id.ozon_bottom);
+                            ozonBottom.setBackgroundResource(R.drawable.search_page_ozon_bottom_background);
+
+                            findViewById(R.id.ozon_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.ozon_rating_block).setVisibility(View.VISIBLE);
+
+                            ozon_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+
+                            ozonTitleText.setText(truncateText(data.title));
                             ozonPriceText.setText(data.price);
                             ozonRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_ozon)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_ozon_image_stroke)
                                     .error(R.drawable.search_page_ozon_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -554,14 +891,38 @@ public class SearchActivity extends AppCompatActivity {
                             ozonFeedbackText.setVisibility(View.GONE);
                             break;
                         case "Wildberries":
-                            wbTitleText.setText(data.title);
+                            ConstraintLayout wbBlock = findViewById(R.id.wb_block);
+                            wbBlock.setBackgroundResource(R.drawable.search_page_wb_block_background);
+
+                            RelativeLayout wbHeader = findViewById(R.id.wb_header);
+                            wbHeader.setBackgroundResource(R.drawable.search_page_wb_header_background);
+
+                            ImageView wbImage = findViewById(R.id.wb_image);
+                            wbImage.setBackgroundResource(R.drawable.search_page_wb_image_stroke);
+
+                            RelativeLayout wbBottom = findViewById(R.id.wb_bottom);
+                            wbBottom.setBackgroundResource(R.drawable.search_page_wb_bottom_background);
+
+                            findViewById(R.id.wb_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.wb_rating_block).setVisibility(View.VISIBLE);
+
+                            wb_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+                            wbTitleText.setText(truncateText(data.title));
                             wbPriceText.setText(data.price);
                             wbRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_wb)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_wb_image_stroke)
                                     .error(R.drawable.search_page_wb_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -573,14 +934,38 @@ public class SearchActivity extends AppCompatActivity {
                             wbFeedbackText.setVisibility(View.GONE);
                             break;
                         case "YandexMarket":
-                            YandexMarketTitleText.setText(data.title);
+                            ConstraintLayout yandexBlock = findViewById(R.id.yandex_block);
+                            yandexBlock.setBackgroundResource(R.drawable.search_page_yandex_market_background);
+
+                            RelativeLayout yandexHeader = findViewById(R.id.yandex_header);
+                            yandexHeader.setBackgroundResource(R.drawable.search_page_yandex_market_header_background);
+
+                            ImageView yandexImage = findViewById(R.id.yandex_market_image);
+                            yandexImage.setBackgroundResource(R.drawable.search_page_yandex_market_image_stroke);
+
+                            RelativeLayout yandexBottom = findViewById(R.id.yandex_bottom);
+                            yandexBottom.setBackgroundResource(R.drawable.search_page_yandex_market_bottom_background);
+
+                            findViewById(R.id.yandex_market_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.yandex_market_rating_block).setVisibility(View.VISIBLE);
+
+                            yandex_logo_text.setTextColor(getResources().getColor(R.color.black));
+
+                            YandexMarketTitleText.setText(truncateText(data.title));
                             YandexMarketPriceText.setText(data.price);
                             YandexMarketRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_yandex_market)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_yandex_market_image_stroke)
                                     .error(R.drawable.search_page_yandex_market_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -592,14 +977,38 @@ public class SearchActivity extends AppCompatActivity {
                             yandex_marketFeedbackText.setVisibility(View.GONE);
                             break;
                         case "MagnitMarket":
-                            MagnitMarketTitleText.setText(data.title);
+                            ConstraintLayout magnitBlock = findViewById(R.id.magnit_block);
+                            magnitBlock.setBackgroundResource(R.drawable.search_page_magnit_market_block_background);
+
+                            RelativeLayout magnitHeader = findViewById(R.id.magnit_header);
+                            magnitHeader.setBackgroundResource(R.drawable.search_page_magnit_market_header_background);
+
+                            ImageView magnitImage = findViewById(R.id.magnit_image);
+                            magnitImage.setBackgroundResource(R.drawable.search_page_magnit_market_image_stroke);
+
+                            RelativeLayout magnitBottom = findViewById(R.id.magnit_bottom);
+                            magnitBottom.setBackgroundResource(R.drawable.search_page_magnit_market_bottom_background);
+
+                            findViewById(R.id.magnit_market_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.magnit_rating_block).setVisibility(View.VISIBLE);
+
+                            magnit_logo_text.setTextColor(getResources().getColor(R.color.marketplace_magnit_market));
+
+                            MagnitMarketTitleText.setText(truncateText(data.title));
                             MagnitMarketPriceText.setText(data.price);
                             MagnitMarketRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_magnit_market)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_magnit_market_image_stroke)
                                     .error(R.drawable.search_page_magnit_market_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -611,14 +1020,38 @@ public class SearchActivity extends AppCompatActivity {
                             magnitFeedbackText.setVisibility(View.GONE);
                             break;
                         case "DNS":
-                            dnsTitleText.setText(data.title);
+                            ConstraintLayout dnsBlock = findViewById(R.id.dns_block);
+                            dnsBlock.setBackgroundResource(R.drawable.search_page_dns_block_background);
+
+                            RelativeLayout dnsHeader = findViewById(R.id.dns_header);
+                            dnsHeader.setBackgroundResource(R.drawable.search_page_dns_header_background);
+
+                            ImageView dnsImage = findViewById(R.id.dns_image);
+                            dnsImage.setBackgroundResource(R.drawable.search_page_dns_image_stroke);
+
+                            RelativeLayout dnsBottom = findViewById(R.id.dns_bottom);
+                            dnsBottom.setBackgroundResource(R.drawable.search_page_dns_bottom_background);
+
+                            findViewById(R.id.dns_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.dns_rating_block).setVisibility(View.VISIBLE);
+
+                            dns_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+                            dnsTitleText.setText(truncateText(data.title));
                             dnsPriceText.setText(data.price);
                             dnsRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_dns)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_dns_image_stroke)
                                     .error(R.drawable.search_page_dns_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -630,14 +1063,38 @@ public class SearchActivity extends AppCompatActivity {
                             dnsFeedbackText.setVisibility(View.GONE);
                             break;
                         case "Citilink":
-                            CitilinkTitleText.setText(data.title);
+                            ConstraintLayout citilinkBlock = findViewById(R.id.citilink_block);
+                            citilinkBlock.setBackgroundResource(R.drawable.search_page_citilink_block_background);
+
+                            RelativeLayout citilinkHeader = findViewById(R.id.citilink_header);
+                            citilinkHeader.setBackgroundResource(R.drawable.search_page_citilink_header_background);
+
+                            ImageView citilinkImage = findViewById(R.id.citilink_image);
+                            citilinkImage.setBackgroundResource(R.drawable.search_page_citilink_image_stroke);
+
+                            RelativeLayout citilinkBottom = findViewById(R.id.citilink_bottom);
+                            citilinkBottom.setBackgroundResource(R.drawable.search_page_citilink_bottom_background);
+
+                            findViewById(R.id.citilink_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.citilink_rating_block).setVisibility(View.VISIBLE);
+
+                            citilink_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+                            CitilinkTitleText.setText(truncateText(data.title));
                             CitilinkPriceText.setText(data.price);
                             CitilinkRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_citilink)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_citilink_image_stroke)
                                     .error(R.drawable.search_page_citilink_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -649,14 +1106,38 @@ public class SearchActivity extends AppCompatActivity {
                             citilinkFeedbackText.setVisibility(View.GONE);
                             break;
                         case "M_Video":
-                            MVideoTitleText.setText(data.title);
+                            ConstraintLayout mvideoBlock = findViewById(R.id.mvideo_block);
+                            mvideoBlock.setBackgroundResource(R.drawable.search_page_m_video_block_background);
+
+                            RelativeLayout mvideoHeader = findViewById(R.id.mvideo_header);
+                            mvideoHeader.setBackgroundResource(R.drawable.search_page_m_video_header_background);
+
+                            ImageView mvideoImage = findViewById(R.id.mvideo_image);
+                            mvideoImage.setBackgroundResource(R.drawable.search_page_m_video_image_stroke);
+
+                            RelativeLayout mvideoBottom = findViewById(R.id.mvideo_bottom);
+                            mvideoBottom.setBackgroundResource(R.drawable.search_page_m_video_bottom_background);
+
+                            findViewById(R.id.mvideo_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.mvideo_rating_block).setVisibility(View.VISIBLE);
+
+                            mvideo_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+                            MVideoTitleText.setText(truncateText(data.title));
                             MVideoPriceText.setText(data.price);
                             MVideoRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
-                                    .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .override(convertDpToPx(150f), convertDpToPx(140f))
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_m_video)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_m_video_image_stroke)
                                     .error(R.drawable.search_page_m_video_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -668,14 +1149,38 @@ public class SearchActivity extends AppCompatActivity {
                             mvideoFeedbackText.setVisibility(View.GONE);
                             break;
                         case "Aliexpress":
-                            AliexpressTitleText.setText(data.title);
+                            ConstraintLayout aliexpressBlock = findViewById(R.id.aliexpress_block);
+                            aliexpressBlock.setBackgroundResource(R.drawable.search_page_aliexpress_block_background);
+
+                            RelativeLayout aliexpressHeader = findViewById(R.id.aliexpress_header);
+                            aliexpressHeader.setBackgroundResource(R.drawable.search_page_aliexpress_header_background);
+
+                            ImageView aliexpressImage = findViewById(R.id.ozon_image);
+                            aliexpressImage.setBackgroundResource(R.drawable.search_page_aliexpress_image_stroke);
+
+                            RelativeLayout aliexpressBottom = findViewById(R.id.ozon_bottom);
+                            aliexpressBottom.setBackgroundResource(R.drawable.search_page_aliexpress_bottom_background);
+
+                            findViewById(R.id.aliexpress_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.aliexpress_rating_block).setVisibility(View.VISIBLE);
+
+                            aliexpress_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+                            AliexpressTitleText.setText(truncateText(data.title));
                             AliexpressPriceText.setText(data.price);
                             AliexpressRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_aliexpress)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_aliexpress_image_stroke)
                                     .error(R.drawable.search_page_aliexpress_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -687,14 +1192,38 @@ public class SearchActivity extends AppCompatActivity {
                             aliexpressFeedbackText.setVisibility(View.GONE);
                             break;
                         case "Joom":
-                            JoomTitleText.setText(data.title);
+                            ConstraintLayout joomBlock = findViewById(R.id.joom_block);
+                            joomBlock.setBackgroundResource(R.drawable.search_page_joom_block_background);
+
+                            RelativeLayout joomHeader = findViewById(R.id.ozon_header);
+                            joomHeader.setBackgroundResource(R.drawable.search_page_joom_header_background);
+
+                            ImageView joomImage = findViewById(R.id.ozon_image);
+                            joomImage.setBackgroundResource(R.drawable.search_page_joom_image_stroke);
+
+                            RelativeLayout joomBottom = findViewById(R.id.ozon_bottom);
+                            joomBottom.setBackgroundResource(R.drawable.search_page_joom_bottom_background);
+
+                            findViewById(R.id.joom_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.joom_rating_block).setVisibility(View.VISIBLE);
+
+                            joom_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+                            JoomTitleText.setText(truncateText(data.title));
                             JoomPriceText.setText(data.price);
                             JoomRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_joom)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_joom_image_stroke)
                                     .error(R.drawable.search_page_joom_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -706,14 +1235,38 @@ public class SearchActivity extends AppCompatActivity {
                             joomFeedbackText.setVisibility(View.GONE);
                             break;
                         case "Shop_mts":
-                            Mts_Shop_TitleText.setText(data.title);
+                            ConstraintLayout mtsBlock = findViewById(R.id.mts_block);
+                            mtsBlock.setBackgroundResource(R.drawable.search_page_mts_shop_block_background);
+
+                            RelativeLayout mtsHeader = findViewById(R.id.ozon_header);
+                            mtsHeader.setBackgroundResource(R.drawable.search_page_mts_shop_header_background);
+
+                            ImageView mtsImage = findViewById(R.id.ozon_image);
+                            mtsImage.setBackgroundResource(R.drawable.search_page_mts_shop_image_stroke);
+
+                            RelativeLayout mtsBottom = findViewById(R.id.ozon_bottom);
+                            mtsBottom.setBackgroundResource(R.drawable.search_page_mts_shop_bottom_background);
+
+                            findViewById(R.id.mts_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.mts_rating_block).setVisibility(View.VISIBLE);
+
+                            mts_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+                            Mts_Shop_TitleText.setText(truncateText(data.title));
                             Mts_Shop_PriceText.setText(data.price);
                             Mts_Shop_RatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_mts_shop)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_mts_shop_image_stroke)
                                     .error(R.drawable.search_page_mts_shop_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -725,14 +1278,38 @@ public class SearchActivity extends AppCompatActivity {
                             mtsFeedbackText.setVisibility(View.GONE);
                             break;
                         case "Technopark":
-                            TechnoparkTitleText.setText(data.title);
+                            ConstraintLayout technoparkBlock = findViewById(R.id.technopark_block);
+                            technoparkBlock.setBackgroundResource(R.drawable.search_page_technopark_block_background);
+
+                            RelativeLayout technoparkHeader = findViewById(R.id.ozon_header);
+                            technoparkHeader.setBackgroundResource(R.drawable.search_page_technopark_header_background);
+
+                            ImageView technoparkImage = findViewById(R.id.ozon_image);
+                            technoparkImage.setBackgroundResource(R.drawable.search_page_technopark_image_stroke);
+
+                            RelativeLayout technoparkBottom = findViewById(R.id.ozon_bottom);
+                            technoparkBottom.setBackgroundResource(R.drawable.search_page_technopark_bottom_background);
+
+                            findViewById(R.id.technopark_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.technopark_rating_block).setVisibility(View.VISIBLE);
+
+                            technopark_logo_text.setTextColor(getResources().getColor(R.color.white));
+
+                            TechnoparkTitleText.setText(truncateText(data.title));
                             TechnoparkPriceText.setText(data.price);
                             TechnoparkRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_technopark)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_technopark_image_stroke)
                                     .error(R.drawable.search_page_technopark_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -744,14 +1321,38 @@ public class SearchActivity extends AppCompatActivity {
                             technoparkFeedbackText.setVisibility(View.GONE);
                             break;
                         case "Lamoda":
-                            LamodaTitleText.setText(data.title);
+                            ConstraintLayout lamodaBlock = findViewById(R.id.lamoda_block);
+                            lamodaBlock.setBackgroundResource(R.drawable.search_page_lamoda_block_background);
+
+                            RelativeLayout lamodaHeader = findViewById(R.id.lamoda_header);
+                            lamodaHeader.setBackgroundResource(R.drawable.search_page_lamoda_header_background);
+
+                            ImageView lamodaImage = findViewById(R.id.lamoda_image);
+                            lamodaImage.setBackgroundResource(R.drawable.search_page_lamoda_image_stroke);
+
+                            RelativeLayout lamodaBottom = findViewById(R.id.lamoda_bottom);
+                            lamodaBottom.setBackgroundResource(R.drawable.search_page_lamoda_bottom_background);
+
+                            findViewById(R.id.lamoda_rating_icon).setVisibility(View.VISIBLE);
+                            findViewById(R.id.lamoda_rating_block).setVisibility(View.VISIBLE);
+
+                            lamoda_logo_text.setTextColor(getResources().getColor(R.color.black));
+
+                            LamodaTitleText.setText(truncateText(data.title));
                             LamodaPriceText.setText(data.price);
                             LamodaRatingText.setText(data.rating);
                             Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
                             Glide.with(SearchActivity.this)
                                     .load(data.imageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
-                                    .fitCenter()
+                                    .centerCrop()
+                                    .transform(new MultiTransformation<>(
+                                            new CenterCrop(),
+                                            new InnerStrokeTransformation(
+                                                    convertDpToPx(2f),
+                                                    ContextCompat.getColor(SearchActivity.this, R.color.marketplace_lamoda)
+                                            )
+                                    ))
                                     .placeholder(R.drawable.search_page_lamoda_image_stroke)
                                     .error(R.drawable.search_page_lamoda_image_stroke)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -778,6 +1379,30 @@ public class SearchActivity extends AppCompatActivity {
         webSocketClient.connect();
     }
 
+    private void performSearch(String searchText) {
+        String ipAddress = getIPAddress();
+        int pageNumber = SettingsAppActivity.getSavedPageNumber(this);
+        List<String> activeMarketplaces = SettingsAppActivity.getActiveMarketplaces(this);
+
+        hideProductElements();
+
+        ApiClient apiClient = new ApiClient();
+
+        apiClient.searchProducts(ipAddress, searchText, pageNumber, activeMarketplaces, new ApiClient.ApiCallback<ApiClient.SearchResponse>() {
+            @Override
+            public void onSuccess(ApiClient.SearchResponse response) {
+                setupWebSocketConnection(ipAddress);
+            }
+
+            @Override
+            public void onFailure(String error) {
+                runOnUiThread(() -> {
+                    Toast.makeText(SearchActivity.this, "Ошибка поиска: " + error, Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+    }
+
     private String getIPAddress() {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
@@ -794,5 +1419,4 @@ public class SearchActivity extends AppCompatActivity {
         }
         return "unknown";
     }
-
 }

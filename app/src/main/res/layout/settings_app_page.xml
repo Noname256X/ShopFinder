@@ -60,9 +60,11 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp">
 
             <LinearLayout
@@ -88,7 +90,7 @@
                         android:paddingLeft="19.05dp"
                         android:text="@string/ozon_text"
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <Switch
                         android:id="@+id/ozonSwitch"
@@ -117,7 +119,7 @@
                         android:paddingLeft="19.05dp"
                         android:text="@string/wb_text"
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <Switch
                         android:id="@+id/wildberriesSwitch"
@@ -146,7 +148,7 @@
                         android:paddingLeft="19.05dp"
                         android:text="@string/yandex_market_text"
                         android:textColor="@android:color/black"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <Switch
                         android:id="@+id/YandexMarketSwitch"
@@ -175,7 +177,7 @@
                         android:paddingLeft="19.05dp"
                         android:text="@string/magnit_market_text"
                         android:textColor="@color/marketplace_magnit_market"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <Switch
                         android:id="@+id/MagnitMarketSwitch"
@@ -481,7 +483,7 @@
             android:background="@drawable/mini_block_field_in_button_settings_app"
             android:gravity="center"
             android:inputType="number"
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:fontFamily="@font/jost"
             android:text="8"
             android:focusable="false"
