@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -39,9 +40,12 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.MessageDigest;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.*;
 
@@ -56,7 +60,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.shopfinder.CustomWebSocketListener;
 import com.example.shopfinder.ProductData;
-
+import com.google.android.material.button.MaterialButton;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -106,6 +110,15 @@ public class SearchActivity extends AppCompatActivity {
     //navbar
     private RelativeLayout mainFullNavigationButton;
     private ImageButton mainNavigationButton;
+    //ProductBlock
+    private int currentImageIndex = 0;
+    private List<String> productImages = new ArrayList<>();
+    private ImageView mainImage;
+    private ImageView rightIconInBut;
+    private ImageView leftIconInBut;
+    private ConstraintLayout productBlock;
+
+    private Map<String, ProductData> marketplaceProducts = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,6 +229,32 @@ public class SearchActivity extends AppCompatActivity {
         TechnoparkImage = findViewById(R.id.technopark_image);
         LamodaImage = findViewById(R.id.lamoda_image);
 
+        //ProductBlock
+        mainImage = findViewById(R.id.mainImage);
+        rightIconInBut = findViewById(R.id.right_icon_in_but);
+        leftIconInBut = findViewById(R.id.left_icon_in_but);
+        productBlock = findViewById(R.id.product_block);
+        View closeButton2 = findViewById(R.id.close_button2);
+        ImageView shareIcon = findViewById(R.id.share_icon);
+        shareIcon.setOnClickListener(v -> shareProductLink());
+        ImageView openLinkIcon = findViewById(R.id.open_link_icon);
+
+        //ProductContainer Block
+        ConstraintLayout ozonBlock = findViewById(R.id.ozon_block);
+
+
+        rightIconInBut.setOnClickListener(v -> showNextImage());
+        leftIconInBut.setOnClickListener(v -> showPreviousImage());
+
+        productBlock.setVisibility(View.GONE);
+
+        setupMarketplaceClickListeners();
+
+        closeButton2.setOnClickListener(v -> {
+            productBlock.setVisibility(View.GONE);
+            productBlock.setClickable(false);
+        });
+
         productsContainer.setVisibility(View.GONE);
         hintsContainer.setVisibility(View.VISIBLE);
         filtersContainer.setVisibility(View.GONE);
@@ -227,6 +266,7 @@ public class SearchActivity extends AppCompatActivity {
             mainNavigationButton.setVisibility(View.GONE);
             mainFullNavigationButton.setVisibility(View.VISIBLE);
         });
+
 
         leftIcon.setOnClickListener(v -> {
             Intent selectedProductsIntent = new Intent(SearchActivity.this, SelectedProductsActivity.class);
@@ -269,6 +309,12 @@ public class SearchActivity extends AppCompatActivity {
             hideFullNavigation();
         });
 
+        productBlock.setOnClickListener(v -> {
+        });
+
+        productBlock.setClickable(false);
+        productBlock.setVisibility(View.GONE);
+
         filterIconBut.setOnClickListener(v -> {
             if (filtersContainer.getVisibility() == View.VISIBLE) {
                 filtersContainer.setVisibility(View.GONE);
@@ -290,6 +336,8 @@ public class SearchActivity extends AppCompatActivity {
                 priceFrom.getPaddingRight(), priceFrom.getPaddingBottom());
         priceTo.setPadding(convertDpToPx(7.62f), priceTo.getPaddingTop(),
                 priceTo.getPaddingRight(), priceTo.getPaddingBottom());
+
+        openLinkIcon.setOnClickListener(v -> openProductLinkInBrowser());
 
         productEntryField.setFocusable(false);
         productEntryField.setFocusableInTouchMode(false);
@@ -325,6 +373,55 @@ public class SearchActivity extends AppCompatActivity {
             checkboxNone.setImageResource(isCheckboxChecked ?
                     R.drawable.checkbox_icon : R.drawable.empty_check_icon);
         });
+    }
+
+    private void openProductLinkInBrowser() {
+        if (productBlock.getVisibility() != View.VISIBLE) {
+            Toast.makeText(this, "Нет товара для открытия", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String marketplace = ((MaterialButton)findViewById(R.id.ozon_button)).getText().toString();
+        ProductData productData = marketplaceProducts.get(marketplace);
+
+        if (productData == null || productData.link == null || productData.link.isEmpty()) {
+            Toast.makeText(this, "Ссылка на товар недоступна", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Создаем Intent для открытия ссылки
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(productData.link));
+
+        // Проверяем, есть ли приложения для обработки этого Intent
+        if (browserIntent.resolveActivity(getPackageManager()) != null) {
+            // Создаем диалог выбора браузера
+            Intent chooserIntent = Intent.createChooser(browserIntent, "Выберите браузер");
+            startActivity(chooserIntent);
+        } else {
+            Toast.makeText(this, "Не найдено приложений для открытия ссылки", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void shareProductLink() {
+        if (productBlock.getVisibility() != View.VISIBLE) {
+            Toast.makeText(this, "Нет товара для отправки", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String marketplace = ((MaterialButton)findViewById(R.id.ozon_button)).getText().toString();
+        ProductData productData = marketplaceProducts.get(marketplace);
+
+        if (productData == null || productData.link == null || productData.link.isEmpty()) {
+            Toast.makeText(this, "Ссылка на товар недоступна", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Посмотрите этот товар: " + productData.title);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, productData.link);
+
+        startActivity(Intent.createChooser(shareIntent, "Поделиться ссылкой"));
     }
 
     private void setCardStylesInactive() {
@@ -547,6 +644,38 @@ public class SearchActivity extends AppCompatActivity {
         findViewById(R.id.lamoda_title_text).setVisibility(View.GONE);
     }
 
+    private void showNextImage() {
+        if (productImages.isEmpty()) return;
+
+        currentImageIndex++;
+        if (currentImageIndex >= productImages.size()) {
+            currentImageIndex = 0;
+        }
+        loadImage(productImages.get(currentImageIndex));
+    }
+
+    // Метод для отображения предыдущей картинки
+    private void showPreviousImage() {
+        if (productImages.isEmpty()) return;
+
+        currentImageIndex--;
+        if (currentImageIndex < 0) {
+            currentImageIndex = productImages.size() - 1;
+        }
+        loadImage(productImages.get(currentImageIndex));
+    }
+
+    // Метод для загрузки картинки с помощью Glide
+    private void loadImage(String imageUrl) {
+        Glide.with(SearchActivity.this)
+                .load(imageUrl)
+                .override(convertDpToPx(195.05f), convertDpToPx(173.33f))
+                .centerCrop()
+                .placeholder(R.drawable.no_photo_pictures)
+                .error(R.drawable.no_photo_pictures)
+                .into(mainImage);
+    }
+
     private void hideFullNavigation() {
         if (mainFullNavigationButton.getVisibility() == View.VISIBLE) {
             mainFullNavigationButton.setVisibility(View.GONE);
@@ -666,6 +795,125 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    private void showProductBlock(ProductData productData, String marketplace) {
+        // Показываем блок с товаром
+        productBlock.setVisibility(View.VISIBLE);
+        productBlock.setClickable(true);
+
+        // Обновляем данные в product_block
+        TextView productText = findViewById(R.id.product_text);
+        TextView priceText = findViewById(R.id.priceText);
+        TextView reviewsText = findViewById(R.id.reviewsText);
+        TextView ratingText = findViewById(R.id.rating_text_view);
+
+        productText.setText(productData.title);
+        priceText.setText(productData.price);
+        reviewsText.setText("отзывы: " + productData.reviews);
+        ratingText.setText(productData.rating);
+
+        // Обновляем кнопку маркетплейса
+        MaterialButton marketplaceButton = findViewById(R.id.ozon_button);
+        marketplaceButton.setText(marketplace);
+
+        // Устанавливаем цвет кнопки в зависимости от маркетплейса
+        int colorResId = getMarketplaceColor(marketplace);
+        marketplaceButton.setBackgroundTintList(ContextCompat.getColorStateList(this, colorResId));
+
+        // Загружаем изображения товара
+        productImages.clear();
+        if (productData.images != null && !productData.images.isEmpty()) {
+            for (String imageName : productData.images) {
+                String imageUrl = "http://192.168.1.4:3000/images/not%20in%20the%20database/" + imageName;
+                productImages.add(imageUrl);
+            }
+            currentImageIndex = 0;
+            loadImage(productImages.get(currentImageIndex));
+        }
+    }
+
+    private int getMarketplaceColor(String marketplace) {
+        switch (marketplace) {
+            case "Ozon": return R.color.marketplace_ozon;
+            case "Wildberries": return R.color.marketplace_wb;
+            case "YandexMarket": return R.color.marketplace_yandex_market;
+            case "MagnitMarket": return R.color.marketplace_magnit_market;
+            case "DNS": return R.color.marketplace_dns;
+            case "Citilink": return R.color.marketplace_citilink;
+            case "M_Video": return R.color.marketplace_m_video;
+            case "Aliexpress": return R.color.marketplace_aliexpress;
+            case "Joom": return R.color.marketplace_joom;
+            case "Shop_mts": return R.color.marketplace_mts_shop;
+            case "Technopark": return R.color.marketplace_technopark;
+            case "Lamoda": return R.color.white;
+            default: return R.color.additional_color;
+        }
+    }
+
+    private void setupMarketplaceClickListeners() {
+        View.OnClickListener marketplaceClickListener = v -> {
+            String marketplace = "";
+            ProductData productData = null;
+
+            int id = v.getId();
+
+            if (id == R.id.ozon_block) {
+                marketplace = "Ozon";
+                productData = marketplaceProducts.get("Ozon");
+            } else if (id == R.id.wb_block) {
+                marketplace = "Wildberries";
+                productData = marketplaceProducts.get("Wildberries");
+            } else if (id == R.id.yandex_block) {
+                marketplace = "YandexMarket";
+                productData = marketplaceProducts.get("YandexMarket");
+            } else if (id == R.id.magnit_block) {
+                marketplace = "MagnitMarket";
+                productData = marketplaceProducts.get("MagnitMarket");
+            } else if (id == R.id.dns_block) {
+                marketplace = "DNS";
+                productData = marketplaceProducts.get("DNS");
+            } else if (id == R.id.citilink_block) {
+                marketplace = "Citilink";
+                productData = marketplaceProducts.get("Citilink");
+            } else if (id == R.id.mvideo_block) {
+                marketplace = "M_Video";
+                productData = marketplaceProducts.get("M_Video");
+            } else if (id == R.id.aliexpress_block) {
+                marketplace = "Aliexpress";
+                productData = marketplaceProducts.get("Aliexpress");
+            } else if (id == R.id.joom_block) {
+                marketplace = "Joom";
+                productData = marketplaceProducts.get("Joom");
+            } else if (id == R.id.mts_block) {
+                marketplace = "Shop_mts";
+                productData = marketplaceProducts.get("Shop_mts");
+            } else if (id == R.id.technopark_block) {
+                marketplace = "Technopark";
+                productData = marketplaceProducts.get("Technopark");
+            } else if (id == R.id.lamoda_block) {
+                marketplace = "Lamoda";
+                productData = marketplaceProducts.get("Lamoda");
+            }
+
+            if (productData != null) {
+                showProductBlock(productData, marketplace);
+            }
+        };
+
+        // Назначаем слушатели для всех блоков маркетплейсов
+        findViewById(R.id.ozon_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.wb_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.yandex_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.magnit_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.dns_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.citilink_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.mvideo_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.aliexpress_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.joom_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.mts_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.technopark_block).setOnClickListener(marketplaceClickListener);
+        findViewById(R.id.lamoda_block).setOnClickListener(marketplaceClickListener);
+    }
+
     // WebSocket клиент
     public class WebSocketClient {
         private OkHttpClient client;
@@ -730,7 +978,6 @@ public class SearchActivity extends AppCompatActivity {
             });
         }
 
-
         private ProductData parseProductData(JSONObject data) throws JSONException {
             ProductData product = new ProductData();
             product.link = data.getString("link_products");
@@ -742,7 +989,10 @@ public class SearchActivity extends AppCompatActivity {
 
             JSONArray images = data.optJSONArray("images");
             if (images != null && images.length() > 0) {
-                product.imageUrl = "http://192.168.1.4:3000/images/not%20in%20the%20database/" + images.getString(0);
+                product.images = new ArrayList<>();
+                for (int i = 0; i < images.length(); i++) {
+                    product.images.add(images.getString(i));
+                }
             }
 
             return product;
@@ -845,6 +1095,13 @@ public class SearchActivity extends AppCompatActivity {
             public void onDataReceived(String marketplace, ProductData data) {
                 runOnUiThread(() -> {
 
+                    String firstImageUrl = "";
+                    if (data.images != null && !data.images.isEmpty()) {
+                        firstImageUrl = "http://192.168.1.4:3000/images/not%20in%20the%20database/" + data.images.get(0);
+                    }
+
+                    marketplaceProducts.put(marketplace, data);
+
                     switch (marketplace) {
                         case "Ozon":
                             ConstraintLayout ozonBlock = findViewById(R.id.ozon_block);
@@ -859,18 +1116,28 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout ozonBottom = findViewById(R.id.ozon_bottom);
                             ozonBottom.setBackgroundResource(R.drawable.search_page_ozon_bottom_background);
 
+                            TextView ozonRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.ozon_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.ozon_rating_block).setVisibility(View.VISIBLE);
 
                             ozon_logo_text.setTextColor(getResources().getColor(R.color.white));
 
 
+                            productImages.clear();
+                            if (data.images != null && !data.images.isEmpty()) {
+                                for (String imageName : data.images) {
+                                    String imageUrl = "http://192.168.1.4:3000/images/not%20in%20the%20database/" + imageName;
+                                    productImages.add(imageUrl);
+                                }
+                            }
                             ozonTitleText.setText(truncateText(data.title));
                             ozonPriceText.setText(data.price);
                             ozonRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            ozonRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -903,17 +1170,19 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout wbBottom = findViewById(R.id.wb_bottom);
                             wbBottom.setBackgroundResource(R.drawable.search_page_wb_bottom_background);
 
+                            TextView wbRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.wb_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.wb_rating_block).setVisibility(View.VISIBLE);
 
                             wb_logo_text.setTextColor(getResources().getColor(R.color.white));
-
                             wbTitleText.setText(truncateText(data.title));
                             wbPriceText.setText(data.price);
                             wbRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            wbRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -946,6 +1215,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout yandexBottom = findViewById(R.id.yandex_bottom);
                             yandexBottom.setBackgroundResource(R.drawable.search_page_yandex_market_bottom_background);
 
+                            TextView yandexRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.yandex_market_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.yandex_market_rating_block).setVisibility(View.VISIBLE);
 
@@ -954,9 +1225,10 @@ public class SearchActivity extends AppCompatActivity {
                             YandexMarketTitleText.setText(truncateText(data.title));
                             YandexMarketPriceText.setText(data.price);
                             YandexMarketRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            yandexRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -989,6 +1261,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout magnitBottom = findViewById(R.id.magnit_bottom);
                             magnitBottom.setBackgroundResource(R.drawable.search_page_magnit_market_bottom_background);
 
+                            TextView magnitRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.magnit_market_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.magnit_rating_block).setVisibility(View.VISIBLE);
 
@@ -997,9 +1271,10 @@ public class SearchActivity extends AppCompatActivity {
                             MagnitMarketTitleText.setText(truncateText(data.title));
                             MagnitMarketPriceText.setText(data.price);
                             MagnitMarketRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            magnitRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -1032,6 +1307,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout dnsBottom = findViewById(R.id.dns_bottom);
                             dnsBottom.setBackgroundResource(R.drawable.search_page_dns_bottom_background);
 
+                            TextView dnsRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.dns_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.dns_rating_block).setVisibility(View.VISIBLE);
 
@@ -1040,9 +1317,10 @@ public class SearchActivity extends AppCompatActivity {
                             dnsTitleText.setText(truncateText(data.title));
                             dnsPriceText.setText(data.price);
                             dnsRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            dnsRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -1075,6 +1353,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout citilinkBottom = findViewById(R.id.citilink_bottom);
                             citilinkBottom.setBackgroundResource(R.drawable.search_page_citilink_bottom_background);
 
+                            TextView citilinkRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.citilink_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.citilink_rating_block).setVisibility(View.VISIBLE);
 
@@ -1083,9 +1363,10 @@ public class SearchActivity extends AppCompatActivity {
                             CitilinkTitleText.setText(truncateText(data.title));
                             CitilinkPriceText.setText(data.price);
                             CitilinkRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            citilinkRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -1118,6 +1399,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout mvideoBottom = findViewById(R.id.mvideo_bottom);
                             mvideoBottom.setBackgroundResource(R.drawable.search_page_m_video_bottom_background);
 
+                            TextView mvideoRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.mvideo_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.mvideo_rating_block).setVisibility(View.VISIBLE);
 
@@ -1126,9 +1409,10 @@ public class SearchActivity extends AppCompatActivity {
                             MVideoTitleText.setText(truncateText(data.title));
                             MVideoPriceText.setText(data.price);
                             MVideoRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            mvideoRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(150f), convertDpToPx(140f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -1161,6 +1445,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout aliexpressBottom = findViewById(R.id.ozon_bottom);
                             aliexpressBottom.setBackgroundResource(R.drawable.search_page_aliexpress_bottom_background);
 
+                            TextView aliexpressRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.aliexpress_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.aliexpress_rating_block).setVisibility(View.VISIBLE);
 
@@ -1169,9 +1455,10 @@ public class SearchActivity extends AppCompatActivity {
                             AliexpressTitleText.setText(truncateText(data.title));
                             AliexpressPriceText.setText(data.price);
                             AliexpressRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            aliexpressRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -1204,6 +1491,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout joomBottom = findViewById(R.id.ozon_bottom);
                             joomBottom.setBackgroundResource(R.drawable.search_page_joom_bottom_background);
 
+                            TextView joomRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.joom_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.joom_rating_block).setVisibility(View.VISIBLE);
 
@@ -1212,9 +1501,10 @@ public class SearchActivity extends AppCompatActivity {
                             JoomTitleText.setText(truncateText(data.title));
                             JoomPriceText.setText(data.price);
                             JoomRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            joomRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -1247,6 +1537,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout mtsBottom = findViewById(R.id.ozon_bottom);
                             mtsBottom.setBackgroundResource(R.drawable.search_page_mts_shop_bottom_background);
 
+                            TextView mtsRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.mts_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.mts_rating_block).setVisibility(View.VISIBLE);
 
@@ -1255,9 +1547,10 @@ public class SearchActivity extends AppCompatActivity {
                             Mts_Shop_TitleText.setText(truncateText(data.title));
                             Mts_Shop_PriceText.setText(data.price);
                             Mts_Shop_RatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            mtsRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -1290,6 +1583,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout technoparkBottom = findViewById(R.id.ozon_bottom);
                             technoparkBottom.setBackgroundResource(R.drawable.search_page_technopark_bottom_background);
 
+                            TextView technoparkRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.technopark_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.technopark_rating_block).setVisibility(View.VISIBLE);
 
@@ -1298,9 +1593,10 @@ public class SearchActivity extends AppCompatActivity {
                             TechnoparkTitleText.setText(truncateText(data.title));
                             TechnoparkPriceText.setText(data.price);
                             TechnoparkRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            technoparkRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(
@@ -1333,6 +1629,8 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout lamodaBottom = findViewById(R.id.lamoda_bottom);
                             lamodaBottom.setBackgroundResource(R.drawable.search_page_lamoda_bottom_background);
 
+                            TextView lamodaRatingTextBlock = findViewById(R.id.reviewsText);
+
                             findViewById(R.id.lamoda_rating_icon).setVisibility(View.VISIBLE);
                             findViewById(R.id.lamoda_rating_block).setVisibility(View.VISIBLE);
 
@@ -1341,9 +1639,10 @@ public class SearchActivity extends AppCompatActivity {
                             LamodaTitleText.setText(truncateText(data.title));
                             LamodaPriceText.setText(data.price);
                             LamodaRatingText.setText(data.rating);
-                            Log.d("ImageLoad", "Loading image from URL: " + data.imageUrl);
+                            lamodaRatingTextBlock.setText("отзывы:" + data.reviews);
+                            Log.d("ImageLoad", "Loading image from URL: " + data.images.get(0));
                             Glide.with(SearchActivity.this)
-                                    .load(data.imageUrl)
+                                    .load(firstImageUrl)
                                     .override(convertDpToPx(171.43f), convertDpToPx(152.38f))
                                     .centerCrop()
                                     .transform(new MultiTransformation<>(

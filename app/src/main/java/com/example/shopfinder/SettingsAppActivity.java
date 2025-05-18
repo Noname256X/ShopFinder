@@ -3,6 +3,7 @@ package com.example.shopfinder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -10,6 +11,7 @@ import android.content.SharedPreferences;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class SettingsAppActivity extends AppCompatActivity {
     private FrameLayout leftArrowButton;
     private FrameLayout rightArrowButton;
     private EditText pageNumberInput;
+    private ConstraintLayout quantityBlock;
 
 
     @Override
@@ -49,6 +52,7 @@ public class SettingsAppActivity extends AppCompatActivity {
         leftArrowButton = findViewById(R.id.leftArrowButton);
         rightArrowButton = findViewById(R.id.rightArrowButton);
         pageNumberInput = findViewById(R.id.pageNumberInput);
+        quantityBlock = findViewById(R.id.quantityBlock);
 
         //Switch
         ozonSwitch = findViewById(R.id.ozonSwitch);
@@ -81,8 +85,10 @@ public class SettingsAppActivity extends AppCompatActivity {
         lamodaSwitch.setChecked(prefs.getBoolean("lamodaSwitch", true));
 
 
-        int savedPageNumber = prefs.getInt(PAGE_NUMBER_KEY, 8);
-        pageNumberInput.setText(String.valueOf(savedPageNumber));
+//        int savedPageNumber = prefs.getInt(PAGE_NUMBER_KEY, 8);
+//        pageNumberInput.setText(String.valueOf(savedPageNumber));
+        quantityBlock.setVisibility(View.GONE);
+        pageNumberInput.setText("2");
 
         goBackButton.setOnClickListener(v -> {
             Intent intent = new Intent(SettingsAppActivity.this, SettingsActivity.class);
@@ -90,23 +96,23 @@ public class SettingsAppActivity extends AppCompatActivity {
             finish();
         });
 
-        leftArrowButton.setOnClickListener(v -> {
-            int currentValue = Integer.parseInt(pageNumberInput.getText().toString());
-            if (currentValue > 1) {
-                currentValue--;
-                pageNumberInput.setText(String.valueOf(currentValue));
-                savePageNumber();
-            }
-        });
-
-        rightArrowButton.setOnClickListener(v -> {
-            int currentValue = Integer.parseInt(pageNumberInput.getText().toString());
-            if (currentValue < 8) {
-                currentValue++;
-                pageNumberInput.setText(String.valueOf(currentValue));
-                savePageNumber();
-            }
-        });
+//        leftArrowButton.setOnClickListener(v -> {
+//            int currentValue = Integer.parseInt(pageNumberInput.getText().toString());
+//            if (currentValue > 1) {
+//                currentValue--;
+//                pageNumberInput.setText(String.valueOf(currentValue));
+//                savePageNumber();
+//            }
+//        });
+//
+//        rightArrowButton.setOnClickListener(v -> {
+//            int currentValue = Integer.parseInt(pageNumberInput.getText().toString());
+//            if (currentValue < 8) {
+//                currentValue++;
+//                pageNumberInput.setText(String.valueOf(currentValue));
+//                savePageNumber();
+//            }
+//        });
     }
 
     public static boolean areAllSwitchesDisabled(Context context) {
@@ -149,17 +155,17 @@ public class SettingsAppActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        savePageNumber();
+//        savePageNumber();
         saveSwitchStates();
     }
 
-    private int getCurrentPageNumber() {
-        try {
-            return Integer.parseInt(pageNumberInput.getText().toString());
-        } catch (NumberFormatException e) {
-            return 8;
-        }
-    }
+//    private int getCurrentPageNumber() {
+//        try {
+//            return Integer.parseInt(pageNumberInput.getText().toString());
+//        } catch (NumberFormatException e) {
+//            return 8;
+//        }
+//    }
 
     private void saveSwitchStates() {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
@@ -180,21 +186,25 @@ public class SettingsAppActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private void savePageNumber() {
-        int pageNumber = getCurrentPageNumber();
-        if (pageNumber < 1) pageNumber = 1;
-        if (pageNumber > 8) pageNumber = 8;
+//    private void savePageNumber() {
+//        int pageNumber = getCurrentPageNumber();
+//        if (pageNumber < 1) pageNumber = 1;
+//        if (pageNumber > 8) pageNumber = 8;
+//
+//        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+//        editor.putInt(PAGE_NUMBER_KEY, pageNumber);
+//        editor.apply();
+//    }
 
-        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putInt(PAGE_NUMBER_KEY, pageNumber);
-        editor.apply();
-    }
+//    public static int getSavedPageNumber(android.content.Context context) {
+//        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+//        int pageNumber = prefs.getInt(PAGE_NUMBER_KEY, 8);
+//        if (pageNumber < 1) return 1;
+//        if (pageNumber > 8) return 8;
+//        return pageNumber;
+//    }
 
     public static int getSavedPageNumber(android.content.Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        int pageNumber = prefs.getInt(PAGE_NUMBER_KEY, 8);
-        if (pageNumber < 1) return 1;
-        if (pageNumber > 8) return 8;
-        return pageNumber;
+        return 2;
     }
 }

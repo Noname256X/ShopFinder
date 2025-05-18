@@ -39,6 +39,7 @@
     <string name="technopark_text">ТЕХНОПАРК</string>
     <string name="lamoda_text">lamoda</string>
     <string name="price_example">нет цены</string>
+    <string name="price_reviews">нет отзывов</string>
     <string name="initialization">инициализация</string>
     <string name="rating_example">0</string>
     <string name="rating_icon_desc">Рейтинг</string>

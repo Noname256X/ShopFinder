@@ -1,5 +1,7 @@
 package com.example.shopfinder;
 
+import java.util.List;
+
 public class ProductData {
     public String marketplace;
     public String link;
@@ -8,5 +10,5 @@ public class ProductData {
     public String price;
     public String rating;
     public String reviews;
-    public String imageUrl;
+    public List<String> images;
 }
