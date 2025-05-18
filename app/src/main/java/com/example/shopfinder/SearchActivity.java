@@ -34,6 +34,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -61,6 +62,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.shopfinder.CustomWebSocketListener;
 import com.example.shopfinder.ProductData;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -373,6 +375,91 @@ public class SearchActivity extends AppCompatActivity {
             checkboxNone.setImageResource(isCheckboxChecked ?
                     R.drawable.checkbox_icon : R.drawable.empty_check_icon);
         });
+    }
+
+    private void sendProductToApi(String marketplace) {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("user_id", -1);
+
+        if (userId == -1) {
+            Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ProductData productData = marketplaceProducts.get(marketplace);
+        if (productData == null) {
+            Toast.makeText(this, "Данные товара не найдены", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String cleanPrice = productData.price.replaceAll("[^\\d]", "");
+
+        try {
+            JSONObject requestData = new JSONObject();
+            requestData.put("user_id", userId);
+
+            JSONObject productJson = new JSONObject();
+            productJson.put("marketplace", marketplace);
+            productJson.put("title", productData.title);
+            productJson.put("price", cleanPrice);
+            productJson.put("rating", productData.rating);
+            productJson.put("reviews", productData.reviews);
+            productJson.put("link", productData.link);
+            productJson.put("article", productData.article);
+
+            if (productData.images != null && !productData.images.isEmpty()) {
+                JSONArray imagesArray = new JSONArray();
+                for (String image : productData.images) {
+                    imagesArray.put(image);
+                }
+                productJson.put("images", imagesArray);
+            }
+
+            requestData.put("product", productJson);
+
+            RequestBody body = RequestBody.create(
+                    requestData.toString(),
+                    MediaType.parse("application/json")
+            );
+
+            Request request = new Request.Builder()
+                    .url("http://192.168.1.4:3000/api/favorites")
+                    .post(body)
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    runOnUiThread(() ->
+                            Toast.makeText(SearchActivity.this,
+                                    "Ошибка отправки данных: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show()
+                    );
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        runOnUiThread(() ->
+                                Toast.makeText(SearchActivity.this,
+                                        "Товар добавлен в избранное",
+                                        Toast.LENGTH_SHORT).show()
+                        );
+                    } else {
+                        runOnUiThread(() ->
+                                Toast.makeText(SearchActivity.this,
+                                        "Ошибка сервера: " + response.code(),
+                                        Toast.LENGTH_SHORT).show()
+                        );
+                    }
+                    response.close();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Ошибка формирования данных", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openProductLinkInBrowser() {
@@ -850,6 +937,17 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupMarketplaceClickListeners() {
+
+        ImageView ozonRatingIcon = findViewById(R.id.ozon_rating_icon);
+        ImageView wbRatingIcon = findViewById(R.id.wb_rating_icon);
+        ImageView yandexRatingIcon = findViewById(R.id.yandex_market_rating_icon);
+        // Добавьте остальные иконки...
+
+        // Устанавливаем обработчики клика
+        ozonRatingIcon.setOnClickListener(v -> sendProductToApi("Ozon"));
+        wbRatingIcon.setOnClickListener(v -> sendProductToApi("Wildberries"));
+        yandexRatingIcon.setOnClickListener(v -> sendProductToApi("YandexMarket"));
+
         View.OnClickListener marketplaceClickListener = v -> {
             String marketplace = "";
             ProductData productData = null;

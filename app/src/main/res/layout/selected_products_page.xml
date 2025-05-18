@@ -188,32 +188,1763 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/settingsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/jost"
-        android:text="@string/info_nothing_here"
-        android:textColor="@color/text_field_gray"
-        android:textSize="24sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/product_block"
+        android:layout_width="342.86dp"
+        android:layout_height="360.76dp"
+        android:background="@drawable/search_page_filters_block_background"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
 
-    <TextView
-        android:id="@+id/add_favorites_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/jost"
-        android:text="@string/add_favorites_text"
-        android:textColor="@color/text_field_gray"
-        android:textSize="16sp"
+        <ImageView
+            android:id="@+id/mainImage"
+            android:layout_width="195.05dp"
+            android:layout_height="173.33dp"
+            android:layout_marginTop="11.43dp"
+            android:src="@drawable/no_photo_pictures"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/share_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="19.05dp"
+            android:layout_marginTop="24.5dp"
+            android:src="@drawable/to_share_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/rating_block_view"
+            android:layout_width="38dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="20.4dp"
+            android:background="@drawable/rating_for_products_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/rating_text_view"
+                style="@style/fx_drop_shadow_for_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/jura_bold"
+                android:text="@string/rating_example"
+                android:textColor="@color/text_field_gray" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/right_icon_in_but"
+            android:layout_width="21.71dp"
+            android:layout_height="39.62dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="126.1dp"
+            android:src="@drawable/check_mark_right_icon"
+            app:layout_constraintStart_toEndOf="@id/mainImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/left_icon_in_but"
+            android:layout_width="21.71dp"
+            android:layout_height="39.62dp"
+            android:layout_marginTop="126.1dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/check_mark_left_icon"
+            app:layout_constraintEnd_toStartOf="@+id/mainImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/product_text"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="9.52dp"
+            android:gravity="center"
+            android:text="текст товара"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainImage" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/leftButtonViewProduct"
+            android:layout_width="49.14dp"
+            android:layout_height="35.05dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/rounded_button_background3"
+            android:backgroundTint="@color/additional_color"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_text">
+
+            <FrameLayout
+                android:id="@+id/leftButtonProductBlock"
+                android:layout_width="49.14dp"
+                android:layout_height="35.05dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/arrow_left_desc"
+                    android:src="@drawable/arrow_left_icon" />
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rightButtonProductView"
+            android:layout_width="49.14dp"
+            android:layout_height="35.05dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_button_background3"
+            android:backgroundTint="@color/additional_color"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_text">
+
+            <FrameLayout
+                android:id="@+id/rightButtonProductBlock"
+                android:layout_width="49.14dp"
+                android:layout_height="35.05dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/arrow_right_desc"
+                    android:src="@drawable/arrow_right_icon" />
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/close_button2"
+            android:layout_width="79.24dp"
+            android:layout_height="30.48dp"
+            android:layout_marginBottom="11.05dp"
+            android:backgroundTint="@color/additional_color"
+            android:fontFamily="@font/jost"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            android:text="@string/close_button"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:cornerRadius="7.62dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/reviewsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12.95dp"
+            android:text="отзывы"
+            app:layout_constraintBottom_toTopOf="@id/close_button2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/priceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9.14dp"
+            android:text="@string/price_example"
+            app:layout_constraintBottom_toTopOf="@id/reviewsText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ozon_button"
+            android:layout_width="72.0dp"
+            android:layout_height="30.48dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="11.05dp"
+            android:backgroundTint="@color/marketplace_ozon"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            android:text="@string/ozon_text"
+            app:cornerRadius="7.62dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/open_link_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="19.05dp"
+            android:layout_marginEnd="19.05dp"
+            android:src="@drawable/open_the_link_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Контейнер с товарами -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/products_container_favorites"
+        android:layout_width="365.71dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="39.62dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
+        app:layout_constraintTop_toBottomOf="@id/product_entry_field"
+        tools:visibility="visible">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="6"
+            android:padding="4dp">
+
+            <!-- Ozon карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ozon_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/search_page_ozon_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/ozon_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_ozon_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/ozon_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:text="@string/ozon_text"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/ozon_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/ozon_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_ozon_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ozon_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/ozon_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_ozon_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ozon_header_favorites">
+
+                    <TextView
+                        android:id="@+id/ozon_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/ozon_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/ozon_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ozon_image_favorites" />
+
+                <TextView
+                    android:id="@+id/ozon_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:gravity="start"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/ozon_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ozon_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/ozon_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_ozon_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/ozon_price_text_favorites"
+                        style="@style/fx_drop_shadow_for_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- WB карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/wb_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/search_page_wb_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/wb_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_wb_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/wb_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/wb_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/wb_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/wb_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_wb_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wb_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/wb_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_wb_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wb_header_favorites">
+
+                    <TextView
+                        android:id="@+id/wb_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/wb_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/wb_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wb_image_favorites" />
+
+                <TextView
+                    android:id="@+id/wb_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/wb_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wb_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/wb_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_wb_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/wb_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Яндекс Маркет карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/yandex_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_yandex_market_background">
+
+                <RelativeLayout
+                    android:id="@+id/yandex_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_yandex_market_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/yandex_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/yandex_market_text"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/yandex_market_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/yandex_market_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_yandex_market_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yandex_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/yandex_market_rating_block"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_yandex_market_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/yandex_header_favorites">
+
+                    <TextView
+                        android:id="@+id/yandex_market_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/yandex_market_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/yandex_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yandex_market_image_favorites" />
+
+                <TextView
+                    android:id="@+id/yandex_market_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/yandex_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/yandex_market_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/yandex_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_yandex_market_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/yandex_market_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/black"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Магнит Маркет карочка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/magnit_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_magnit_market_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/magnit_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/search_page_magnit_market_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/magnit_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/magnit_market_text"
+                        android:textColor="@color/marketplace_magnit_market" />
+
+                    <ImageView
+                        android:id="@+id/magnit_market_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/magnit_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_magnit_market_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/magnit_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/magnit_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_magnit_market_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/magnit_header_favorites">
+
+                    <TextView
+                        android:id="@+id/magnit_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/magnit_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/magnit_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/magnit_image_favorites" />
+
+                <TextView
+                    android:id="@+id/magnit_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/magnit_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/magnit_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/magnit_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_magnit_market_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/magnit_price_text_favorites"
+                        style="@style/fx_drop_shadow_for_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- DNS Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dns_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_dns_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/dns_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_dns_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/dns_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/dns_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/dns_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/dns_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_dns_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dns_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/dns_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_dns_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dns_header_favorites">
+
+                    <TextView
+                        android:id="@+id/dns_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/dns_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/dns_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dns_image_favorites" />
+
+                <TextView
+                    android:id="@+id/dns_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/dns_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dns_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/dns_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_dns_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/dns_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Ситилинк Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/citilink_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_citilink_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/citilink_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_citilink_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/citilink_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/citilink_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/citilink_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/citilink_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_citilink_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/citilink_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/citilink_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_citilink_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/citilink_header_favorites">
+
+                    <TextView
+                        android:id="@+id/citilink_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/citilink_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/initialization"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/citilink_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/citilink_image_favorites" />
+
+                <TextView
+                    android:id="@+id/citilink_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/citilink_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/citilink_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/citilink_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_citilink_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/citilink_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- М.ВИДЕО Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mvideo_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_m_video_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/mvideo_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_m_video_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/mvideo_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/m_video_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/mvideo_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/mvideo_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_m_video_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mvideo_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/mvideo_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_m_video_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mvideo_header_favorites">
+
+                    <TextView
+                        android:id="@+id/mvideo_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/mvideo_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/mvideo_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mvideo_image_favorites" />
+
+                <TextView
+                    android:id="@+id/mvideo_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/mvideo_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mvideo_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/mvideo_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_m_video_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/mvideo_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- AliExpress Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/aliexpress_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_aliexpress_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/aliexpress_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_aliexpress_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/aliexpress_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/aliexpress_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/aliexpress_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/aliexpress_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_aliexpress_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aliexpress_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/aliexpress_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_aliexpress_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/aliexpress_header_favorites">
+
+                    <TextView
+                        android:id="@+id/aliexpress_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/aliexpress_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/aliexpress_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aliexpress_image_favorites" />
+
+                <TextView
+                    android:id="@+id/aliexpress_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/aliexpress_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aliexpress_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/aliexpress_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_aliexpress_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/aliexpress_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Joom Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/joom_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_joom_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/joom_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_joom_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/joom_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/joom_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/joom_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/joom_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_joom_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/joom_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/joom_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_joom_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/joom_header_favorites">
+
+                    <TextView
+                        android:id="@+id/joom_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/joom_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/joom_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/joom_image_favorites" />
+
+                <TextView
+                    android:id="@+id/joom_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/joom_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/joom_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/joom_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_joom_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/joom_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- МТС Shop Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mts_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_mts_shop_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/mts_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_mts_shop_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/mts_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/mts_shop_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/mts_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/mts_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_mts_shop_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mts_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/mts_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_mts_shop_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mts_header_favorites">
+
+                    <TextView
+                        android:id="@+id/shop_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/mts_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/mts_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mts_image_favorites" />
+
+                <TextView
+                    android:id="@+id/mts_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/mts_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mts_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/mts_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_mts_shop_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/mts_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Технопарк Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/technopark_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_technopark_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/technopark_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:background="@drawable/search_page_technopark_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/technopark_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/technopark_text"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/technopark_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/technopark_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_technopark_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/technopark_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/technopark_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_technopark_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/technopark_header_favorites">
+
+                    <TextView
+                        android:id="@+id/technopark_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/technopark_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/technopark_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/technopark_image_favorites" />
+
+                <TextView
+                    android:id="@+id/technopark_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/technopark_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/technopark_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/technopark_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_technopark_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/technopark_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Lamoda Карточка -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lamoda_block_favorites"
+                android:layout_width="171.43dp"
+                android:layout_height="247.62dp"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11.5dp"
+                android:background="@drawable/search_page_lamoda_block_background">
+
+                <RelativeLayout
+                    android:id="@+id/lamoda_header_favorites"
+                    android:layout_width="169.14dp"
+                    android:layout_height="27.43dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/search_page_lamoda_header_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/lamoda_logo_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/lamoda_text"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/lamoda_rating_icon_favorites"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="-1dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:contentDescription="@string/rating_icon_desc"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/rating_enable_icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/lamoda_image_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="152.38dp"
+                    android:layout_marginTop="-1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search_page_lamoda_image_stroke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lamoda_header_favorites" />
+
+                <RelativeLayout
+                    android:id="@+id/lamoda_rating_block_favorites"
+                    android:layout_width="32dp"
+                    android:layout_height="22.86dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginStart="139dp"
+                    android:layout_marginTop="128.9dp"
+                    android:background="@drawable/search_page_lamoda_rating_block"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lamoda_header_favorites">
+
+                    <TextView
+                        android:id="@+id/lamoda_rating_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jura_bold"
+                        android:text="@string/rating_example"
+                        android:textColor="@color/text_field_gray"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/lamoda_feedback_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initialization"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_field_gray"
+                    app:layout_constraintBottom_toTopOf="@id/lamoda_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lamoda_image_favorites" />
+
+                <TextView
+                    android:id="@+id/lamoda_title_text_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:paddingLeft="3dp"
+                    android:text="@string/example_long_text"
+                    android:textColor="@color/text_field_gray"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toTopOf="@id/lamoda_bottom_favorites"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lamoda_image_favorites"
+                    tools:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/lamoda_bottom_favorites"
+                    android:layout_width="171.43dp"
+                    android:layout_height="19.05dp"
+                    android:background="@drawable/search_page_lamoda_bottom_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/lamoda_price_text_favorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/jost"
+                        android:textStyle="bold"
+                        android:text="@string/price_example"
+                        android:textColor="@color/white"
+                        style="@style/fx_drop_shadow_for_text"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </GridLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <ImageButton
         android:id="@+id/mainNavigationButton"

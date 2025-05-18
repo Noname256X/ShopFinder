@@ -73,7 +73,10 @@
     <string name="arrow_left_desc">Стрелка влево</string>
     <string name="arrow_right_desc">Стрелка вправо</string>
     <string name="countProductsTitle">Количество товаров на выводе</string>
-
+    <string name="product_saved">Товар сохранен в избранное</string>
+    <string name="product_already_saved">Этот товар уже сохранен</string>
+    <string name="no_product_to_save">Нет товара для сохранения</string>
+    <string name="product_data_unavailable">Данные товара недоступны</string>
 
 
 </resources>

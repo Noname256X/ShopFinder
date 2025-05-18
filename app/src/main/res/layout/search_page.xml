@@ -329,16 +329,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/rating_icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="19.05dp"
-            android:layout_marginEnd="19.05dp"
-            android:src="@drawable/rating_disable_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
             android:id="@+id/share_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -400,72 +390,72 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mainImage" />
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/leftButtonViewProduct"-->
-<!--            android:layout_width="49.14dp"-->
-<!--            android:layout_height="35.05dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:background="@drawable/rounded_button_background3"-->
-<!--            android:backgroundTint="@color/additional_color"-->
-<!--            android:insetTop="0dp"-->
-<!--            android:insetBottom="0dp"-->
-<!--            android:padding="0dp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/product_text">-->
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/leftButtonViewProduct"-->
+        <!--            android:layout_width="49.14dp"-->
+        <!--            android:layout_height="35.05dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:background="@drawable/rounded_button_background3"-->
+        <!--            android:backgroundTint="@color/additional_color"-->
+        <!--            android:insetTop="0dp"-->
+        <!--            android:insetBottom="0dp"-->
+        <!--            android:padding="0dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/product_text">-->
 
-<!--            <FrameLayout-->
-<!--                android:id="@+id/leftButtonProductBlock"-->
-<!--                android:layout_width="49.14dp"-->
-<!--                android:layout_height="35.05dp"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:clickable="true"-->
-<!--                android:focusable="true"-->
-<!--                android:foreground="?attr/selectableItemBackground"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent">-->
+        <!--            <FrameLayout-->
+        <!--                android:id="@+id/leftButtonProductBlock"-->
+        <!--                android:layout_width="49.14dp"-->
+        <!--                android:layout_height="35.05dp"-->
+        <!--                android:background="@android:color/transparent"-->
+        <!--                android:clickable="true"-->
+        <!--                android:focusable="true"-->
+        <!--                android:foreground="?attr/selectableItemBackground"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent">-->
 
-<!--                <ImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:contentDescription="@string/arrow_left_desc"-->
-<!--                    android:src="@drawable/arrow_left_icon" />-->
-<!--            </FrameLayout>-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--                <ImageView-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    android:contentDescription="@string/arrow_left_desc"-->
+        <!--                    android:src="@drawable/arrow_left_icon" />-->
+        <!--            </FrameLayout>-->
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/rightButtonProductView"-->
-<!--            android:layout_width="49.14dp"-->
-<!--            android:layout_height="35.05dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="@drawable/rounded_button_background3"-->
-<!--            android:backgroundTint="@color/additional_color"-->
-<!--            android:insetTop="0dp"-->
-<!--            android:insetBottom="0dp"-->
-<!--            android:padding="0dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/product_text">-->
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/rightButtonProductView"-->
+        <!--            android:layout_width="49.14dp"-->
+        <!--            android:layout_height="35.05dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:background="@drawable/rounded_button_background3"-->
+        <!--            android:backgroundTint="@color/additional_color"-->
+        <!--            android:insetTop="0dp"-->
+        <!--            android:insetBottom="0dp"-->
+        <!--            android:padding="0dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/product_text">-->
 
-<!--            <FrameLayout-->
-<!--                android:id="@+id/rightButtonProductBlock"-->
-<!--                android:layout_width="49.14dp"-->
-<!--                android:layout_height="35.05dp"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:clickable="true"-->
-<!--                android:focusable="true"-->
-<!--                android:foreground="?attr/selectableItemBackground"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent">-->
+        <!--            <FrameLayout-->
+        <!--                android:id="@+id/rightButtonProductBlock"-->
+        <!--                android:layout_width="49.14dp"-->
+        <!--                android:layout_height="35.05dp"-->
+        <!--                android:background="@android:color/transparent"-->
+        <!--                android:clickable="true"-->
+        <!--                android:focusable="true"-->
+        <!--                android:foreground="?attr/selectableItemBackground"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent">-->
 
-<!--                <ImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:contentDescription="@string/arrow_right_desc"-->
-<!--                    android:src="@drawable/arrow_right_icon" />-->
-<!--            </FrameLayout>-->
+        <!--                <ImageView-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    android:contentDescription="@string/arrow_right_desc"-->
+        <!--                    android:src="@drawable/arrow_right_icon" />-->
+        <!--            </FrameLayout>-->
 
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/close_button2"
@@ -524,11 +514,11 @@
             android:id="@+id/open_link_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginBottom="11.05dp"
+            android:layout_marginTop="19.05dp"
+            android:layout_marginEnd="19.05dp"
             android:src="@drawable/open_the_link_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
