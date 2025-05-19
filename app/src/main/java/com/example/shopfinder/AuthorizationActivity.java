@@ -97,11 +97,11 @@ public class AuthorizationActivity extends AppCompatActivity {
                         Log.d("AuthResponse", "Response: " + responseData);
 
                         if (response.isSuccessful()) {
-                            // Проверяем наличие user_id в ответе
                             if (jsonResponse.has("userId") || jsonResponse.has("user_id")) {
                                 int userId = jsonResponse.optInt("userId", jsonResponse.optInt("user_id", -1));
+                                boolean isDeleted = jsonResponse.optBoolean("is_deleted", false);
 
-                                if (userId != -1) {
+                                if (userId != -1 && !isDeleted) {
                                     showToast("Авторизация успешна!");
 
                                     SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
@@ -111,6 +111,8 @@ public class AuthorizationActivity extends AppCompatActivity {
 
                                     startActivity(new Intent(AuthorizationActivity.this, SearchActivity.class));
                                     finish();
+                                } else if (isDeleted) {
+                                    showToast("Ошибка: Аккаунт удален");
                                 } else {
                                     showToast("Ошибка: ID пользователя не получен");
                                 }

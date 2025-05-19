@@ -71,6 +71,8 @@ public class RegistrationActivity extends AppCompatActivity {
             json.put("password", password);
         } catch (Exception e) {
             e.printStackTrace();
+            showToast("Ошибка создания запроса");
+            return;
         }
 
         RequestBody body = RequestBody.create(
@@ -99,13 +101,30 @@ public class RegistrationActivity extends AppCompatActivity {
                         JSONObject jsonResponse = new JSONObject(responseData);
                         if (response.isSuccessful()) {
                             showToast("Регистрация успешна!");
-                            startActivity(new Intent(RegistrationActivity.this, SearchActivity.class));
+                            startActivity(new Intent(RegistrationActivity.this, AuthorizationActivity.class));
                             finish();
                         } else {
-                            showToast(jsonResponse.getString("error"));
+                            if (response.code() == 409) {
+
+                                String error = jsonResponse.getString("error");
+                                if (error.contains("email")) {
+                                    emailField.setError("Этот email уже используется");
+                                    emailField.requestFocus();
+                                } else if (error.contains("nickname")) {
+                                    nicknameField.setError("Этот никнейм уже занят");
+                                    nicknameField.requestFocus();
+                                }
+                                showToast(error);
+                            } else if (response.code() == 400) {
+
+                                showToast(jsonResponse.getString("error"));
+                            } else {
+                                showToast("Ошибка регистрации: " + response.code());
+                            }
                         }
                     } catch (Exception e) {
-                        showToast("Ошибка обработки ответа");
+                        showToast("Ошибка обработки ответа сервера");
+                        e.printStackTrace();
                     }
                 });
             }

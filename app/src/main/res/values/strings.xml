@@ -62,6 +62,8 @@
     <string name="are_you_sure_delete_text">Вы уверены, что хотите удалить свой аккаунт?</string>
     <string name="yes_text">Да</string>
     <string name="no_text">Нет</string>
+    <string name="page_main">Авторизоваться</string>
+
 
     <!-- selected_products_page -->
     <string name="selected_search_field">Поиск товара в избранном</string>
@@ -77,6 +79,7 @@
     <string name="product_already_saved">Этот товар уже сохранен</string>
     <string name="no_product_to_save">Нет товара для сохранения</string>
     <string name="product_data_unavailable">Данные товара недоступны</string>
+    <string name="nothing_favorites">Вы ничего не добавили в избранное</string>
 
 
 </resources>

@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -139,7 +140,6 @@ public class SearchActivity extends AppCompatActivity {
         View closeButton = findViewById(R.id.close_button);
         View searchButton = findViewById(R.id.search_icon_green_but);
 
-        //LogoText
         ozon_logo_text = findViewById(R.id.ozon_logo_text);
         wb_logo_text = findViewById(R.id.wb_logo_text);
         yandex_logo_text = findViewById(R.id.yandex_logo_text);
@@ -153,15 +153,12 @@ public class SearchActivity extends AppCompatActivity {
         technopark_logo_text = findViewById(R.id.technopark_logo_text);
         lamoda_logo_text = findViewById(R.id.lamoda_logo_text);
 
-        //navbar
         mainNavigationButton = findViewById(R.id.mainNavigationButton);
         mainFullNavigationButton = findViewById(R.id.mainFullNavigationButton);
         ImageView leftIcon = findViewById(R.id.left_icon);
         ImageView centerIcon = findViewById(R.id.center_icon);
         ImageView rightIcon = findViewById(R.id.right_icon);
 
-
-        //FeedbackText
         ozonFeedbackText = findViewById(R.id.ozon_feedback_text);
         wbFeedbackText = findViewById(R.id.wb_feedback_text);
         yandex_marketFeedbackText = findViewById(R.id.yandex_market_feedback_text);
@@ -175,7 +172,6 @@ public class SearchActivity extends AppCompatActivity {
         technoparkFeedbackText= findViewById(R.id.technopark_feedback_text);
         lamodaFeedbackText = findViewById(R.id.lamoda_feedback_text);
 
-        //TitleText
         ozonTitleText = findViewById(R.id.ozon_title_text);
         wbTitleText = findViewById(R.id.wb_title_text);
         YandexMarketTitleText = findViewById(R.id.yandex_market_title_text);
@@ -189,7 +185,6 @@ public class SearchActivity extends AppCompatActivity {
         TechnoparkTitleText = findViewById(R.id.technopark_title_text);
         LamodaTitleText = findViewById(R.id.lamoda_title_text);
 
-        //PriceText
         ozonPriceText = findViewById(R.id.ozon_price_text);
         wbPriceText = findViewById(R.id.wb_price_text);
         YandexMarketPriceText = findViewById(R.id.yandex_market_price_text);
@@ -203,7 +198,6 @@ public class SearchActivity extends AppCompatActivity {
         TechnoparkPriceText = findViewById(R.id.technopark_price_text);
         LamodaPriceText = findViewById(R.id.lamoda_price_text);
 
-        //RatingText
         ozonRatingText = findViewById(R.id.ozon_rating_text);
         wbRatingText = findViewById(R.id.wb_rating_text);
         YandexMarketRatingText = findViewById(R.id.yandex_market_rating_text);
@@ -217,7 +211,6 @@ public class SearchActivity extends AppCompatActivity {
         TechnoparkRatingText = findViewById(R.id.technopark_rating_text);
         LamodaRatingText = findViewById(R.id.lamoda_rating_text);
 
-        //Image
         ozonImage = findViewById(R.id.ozon_image);
         wbImage = findViewById(R.id.wb_image);
         YandexMarketImage = findViewById(R.id.yandex_market_image);
@@ -231,7 +224,6 @@ public class SearchActivity extends AppCompatActivity {
         TechnoparkImage = findViewById(R.id.technopark_image);
         LamodaImage = findViewById(R.id.lamoda_image);
 
-        //ProductBlock
         mainImage = findViewById(R.id.mainImage);
         rightIconInBut = findViewById(R.id.right_icon_in_but);
         leftIconInBut = findViewById(R.id.left_icon_in_but);
@@ -241,7 +233,6 @@ public class SearchActivity extends AppCompatActivity {
         shareIcon.setOnClickListener(v -> shareProductLink());
         ImageView openLinkIcon = findViewById(R.id.open_link_icon);
 
-        //ProductContainer Block
         ConstraintLayout ozonBlock = findViewById(R.id.ozon_block);
 
 
@@ -440,20 +431,37 @@ public class SearchActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    if (response.isSuccessful()) {
+                    try {
+                        String responseBody = response.body().string();
+                        JSONObject jsonResponse = new JSONObject(responseBody);
+
+                        if (response.isSuccessful()) {
+                            String status = jsonResponse.getString("status");
+                            String message = jsonResponse.getString("message");
+
+                            runOnUiThread(() ->
+                                    Toast.makeText(SearchActivity.this,
+                                            message,
+                                            Toast.LENGTH_SHORT).show()
+                            );
+                        } else {
+                            String error = jsonResponse.optString("error", "Неизвестная ошибка");
+                            runOnUiThread(() ->
+                                    Toast.makeText(SearchActivity.this,
+                                            "Ошибка: " + error,
+                                            Toast.LENGTH_SHORT).show()
+                            );
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                         runOnUiThread(() ->
                                 Toast.makeText(SearchActivity.this,
-                                        "Товар добавлен в избранное",
+                                        "Ошибка обработки ответа",
                                         Toast.LENGTH_SHORT).show()
                         );
-                    } else {
-                        runOnUiThread(() ->
-                                Toast.makeText(SearchActivity.this,
-                                        "Ошибка сервера: " + response.code(),
-                                        Toast.LENGTH_SHORT).show()
-                        );
+                    } finally {
+                        response.close();
                     }
-                    response.close();
                 }
             });
         } catch (JSONException e) {
@@ -476,12 +484,10 @@ public class SearchActivity extends AppCompatActivity {
             return;
         }
 
-        // Создаем Intent для открытия ссылки
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(productData.link));
 
-        // Проверяем, есть ли приложения для обработки этого Intent
         if (browserIntent.resolveActivity(getPackageManager()) != null) {
-            // Создаем диалог выбора браузера
+
             Intent chooserIntent = Intent.createChooser(browserIntent, "Выберите браузер");
             startActivity(chooserIntent);
         } else {
@@ -512,7 +518,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setCardStylesInactive() {
-        // Ozon
         ConstraintLayout ozonBlock = findViewById(R.id.ozon_block);
         ozonBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -525,7 +530,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout ozonBottom = findViewById(R.id.ozon_bottom);
         ozonBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // Wildberries
         ConstraintLayout wbBlock = findViewById(R.id.wb_block);
         wbBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -538,7 +542,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout wbBottom = findViewById(R.id.wb_bottom);
         wbBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // Yandex Market
         ConstraintLayout yandexBlock = findViewById(R.id.yandex_block);
         yandexBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -551,7 +554,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout yandexBottom = findViewById(R.id.yandex_bottom);
         yandexBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // MagnitMarket
         ConstraintLayout magnitBlock = findViewById(R.id.magnit_block);
         magnitBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -564,7 +566,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout magnitBottom = findViewById(R.id.magnit_bottom);
         magnitBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // DNS
         ConstraintLayout dnsBlock = findViewById(R.id.dns_block);
         dnsBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -577,7 +578,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout dnsBottom = findViewById(R.id.dns_bottom);
         dnsBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // Citilink
         ConstraintLayout citilinkBlock = findViewById(R.id.citilink_block);
         citilinkBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -590,7 +590,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout citilinkBottom = findViewById(R.id.citilink_bottom);
         citilinkBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // M_Video
         ConstraintLayout mvideoBlock = findViewById(R.id.mvideo_block);
         mvideoBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -603,7 +602,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout mvideoBottom = findViewById(R.id.mvideo_bottom);
         mvideoBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // Aliexpress
         ConstraintLayout aliexpressBlock = findViewById(R.id.aliexpress_block);
         aliexpressBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -616,7 +614,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout aliexpressBottom = findViewById(R.id.aliexpress_bottom);
         aliexpressBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // Joom
         ConstraintLayout joomBlock = findViewById(R.id.joom_block);
         joomBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -629,7 +626,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout joomBottom = findViewById(R.id.joom_bottom);
         joomBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // Shop_mts
         ConstraintLayout mtsBlock = findViewById(R.id.mts_block);
         mtsBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -642,7 +638,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout mtsBottom = findViewById(R.id.mts_bottom);
         mtsBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // Technopark
         ConstraintLayout technoparkBlock = findViewById(R.id.technopark_block);
         technoparkBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -655,7 +650,6 @@ public class SearchActivity extends AppCompatActivity {
         RelativeLayout technoparkBottom = findViewById(R.id.technopark_bottom);
         technoparkBottom.setBackgroundResource(R.drawable.search_page_inactive_bottom_block);
 
-        // Lamoda
         ConstraintLayout lamodaBlock = findViewById(R.id.lamoda_block);
         lamodaBlock.setBackgroundResource(R.drawable.search_page_inactive_block_background);
 
@@ -741,7 +735,6 @@ public class SearchActivity extends AppCompatActivity {
         loadImage(productImages.get(currentImageIndex));
     }
 
-    // Метод для отображения предыдущей картинки
     private void showPreviousImage() {
         if (productImages.isEmpty()) return;
 
@@ -752,7 +745,6 @@ public class SearchActivity extends AppCompatActivity {
         loadImage(productImages.get(currentImageIndex));
     }
 
-    // Метод для загрузки картинки с помощью Glide
     private void loadImage(String imageUrl) {
         Glide.with(SearchActivity.this)
                 .load(imageUrl)
@@ -883,11 +875,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void showProductBlock(ProductData productData, String marketplace) {
-        // Показываем блок с товаром
         productBlock.setVisibility(View.VISIBLE);
         productBlock.setClickable(true);
 
-        // Обновляем данные в product_block
         TextView productText = findViewById(R.id.product_text);
         TextView priceText = findViewById(R.id.priceText);
         TextView reviewsText = findViewById(R.id.reviewsText);
@@ -898,15 +888,12 @@ public class SearchActivity extends AppCompatActivity {
         reviewsText.setText("отзывы: " + productData.reviews);
         ratingText.setText(productData.rating);
 
-        // Обновляем кнопку маркетплейса
         MaterialButton marketplaceButton = findViewById(R.id.ozon_button);
         marketplaceButton.setText(marketplace);
 
-        // Устанавливаем цвет кнопки в зависимости от маркетплейса
         int colorResId = getMarketplaceColor(marketplace);
         marketplaceButton.setBackgroundTintList(ContextCompat.getColorStateList(this, colorResId));
 
-        // Загружаем изображения товара
         productImages.clear();
         if (productData.images != null && !productData.images.isEmpty()) {
             for (String imageName : productData.images) {
@@ -941,12 +928,101 @@ public class SearchActivity extends AppCompatActivity {
         ImageView ozonRatingIcon = findViewById(R.id.ozon_rating_icon);
         ImageView wbRatingIcon = findViewById(R.id.wb_rating_icon);
         ImageView yandexRatingIcon = findViewById(R.id.yandex_market_rating_icon);
-        // Добавьте остальные иконки...
+        ImageView magnitRatingIcon = findViewById(R.id.magnit_market_rating_icon);
+        ImageView dnsRatingIcon = findViewById(R.id.dns_rating_icon);
+        ImageView citilinkRatingIcon = findViewById(R.id.citilink_rating_icon);
+        ImageView mvideoRatingIcon = findViewById(R.id.mvideo_rating_icon);
+        ImageView aliexpressRatingIcon = findViewById(R.id.aliexpress_rating_icon);
+        ImageView joomRatingIcon = findViewById(R.id.joom_rating_icon);
+        ImageView mtsRatingIcon = findViewById(R.id.mts_rating_icon);
+        ImageView technoparkRatingIcon = findViewById(R.id.technopark_rating_icon);
+        ImageView lamodaRatingIcon = findViewById(R.id.lamoda_rating_icon);
 
-        // Устанавливаем обработчики клика
-        ozonRatingIcon.setOnClickListener(v -> sendProductToApi("Ozon"));
-        wbRatingIcon.setOnClickListener(v -> sendProductToApi("Wildberries"));
-        yandexRatingIcon.setOnClickListener(v -> sendProductToApi("YandexMarket"));
+
+        ozonRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("Ozon")) {
+                sendProductToApi("Ozon");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        wbRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("Wildberries")) {
+                sendProductToApi("Wildberries");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        yandexRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("YandexMarket")) {
+                sendProductToApi("YandexMarket");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        magnitRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("MagnitMarket")) {
+                sendProductToApi("MagnitMarket");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dnsRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("DNS")) {
+                sendProductToApi("DNS");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        citilinkRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("Citilink")) {
+                sendProductToApi("Citilink");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mvideoRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("M_Video")) {
+                sendProductToApi("M_Video");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        aliexpressRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("Aliexpress")) {
+                sendProductToApi("Aliexpress");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        joomRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("Joom")) {
+                sendProductToApi("Joom");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mtsRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("Shop_mts")) {
+                sendProductToApi("Shop_mts");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        technoparkRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("Technopark")) {
+                sendProductToApi("Technopark");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
+        lamodaRatingIcon.setOnClickListener(v -> {
+            if (marketplaceProducts.containsKey("Lamoda")) {
+                sendProductToApi("Lamoda");
+            } else {
+                Toast.makeText(this, "Сначала найдите товар", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         View.OnClickListener marketplaceClickListener = v -> {
             String marketplace = "";
@@ -997,7 +1073,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         };
 
-        // Назначаем слушатели для всех блоков маркетплейсов
         findViewById(R.id.ozon_block).setOnClickListener(marketplaceClickListener);
         findViewById(R.id.wb_block).setOnClickListener(marketplaceClickListener);
         findViewById(R.id.yandex_block).setOnClickListener(marketplaceClickListener);
@@ -1012,7 +1087,6 @@ public class SearchActivity extends AppCompatActivity {
         findViewById(R.id.lamoda_block).setOnClickListener(marketplaceClickListener);
     }
 
-    // WebSocket клиент
     public class WebSocketClient {
         private OkHttpClient client;
         private WebSocket webSocket;
@@ -1130,7 +1204,6 @@ public class SearchActivity extends AppCompatActivity {
             Bitmap bitmap = Bitmap.createBitmap(outWidth, outHeight, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
 
-            // Рисуем исходное изображение
             Paint paint = new Paint();
             paint.setAntiAlias(true);
             RectF rectF = new RectF(0, 0, outWidth, outHeight);
@@ -1139,7 +1212,7 @@ public class SearchActivity extends AppCompatActivity {
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(strokeWidth);
             paint.setColor(strokeColor);
-            rectF.inset(strokeWidth / 2f, strokeWidth / 2f); // Смещаем прямоугольник внутрь
+            rectF.inset(strokeWidth / 2f, strokeWidth / 2f);
             canvas.drawRoundRect(rectF, 0, 0, paint);
 
             return bitmap;
@@ -1537,10 +1610,10 @@ public class SearchActivity extends AppCompatActivity {
                             RelativeLayout aliexpressHeader = findViewById(R.id.aliexpress_header);
                             aliexpressHeader.setBackgroundResource(R.drawable.search_page_aliexpress_header_background);
 
-                            ImageView aliexpressImage = findViewById(R.id.ozon_image);
+                            ImageView aliexpressImage = findViewById(R.id.aliexpress_image);
                             aliexpressImage.setBackgroundResource(R.drawable.search_page_aliexpress_image_stroke);
 
-                            RelativeLayout aliexpressBottom = findViewById(R.id.ozon_bottom);
+                            RelativeLayout aliexpressBottom = findViewById(R.id.aliexpress_bottom);
                             aliexpressBottom.setBackgroundResource(R.drawable.search_page_aliexpress_bottom_background);
 
                             TextView aliexpressRatingTextBlock = findViewById(R.id.reviewsText);
@@ -1580,13 +1653,13 @@ public class SearchActivity extends AppCompatActivity {
                             ConstraintLayout joomBlock = findViewById(R.id.joom_block);
                             joomBlock.setBackgroundResource(R.drawable.search_page_joom_block_background);
 
-                            RelativeLayout joomHeader = findViewById(R.id.ozon_header);
+                            RelativeLayout joomHeader = findViewById(R.id.joom_header);
                             joomHeader.setBackgroundResource(R.drawable.search_page_joom_header_background);
 
-                            ImageView joomImage = findViewById(R.id.ozon_image);
+                            ImageView joomImage = findViewById(R.id.joom_image);
                             joomImage.setBackgroundResource(R.drawable.search_page_joom_image_stroke);
 
-                            RelativeLayout joomBottom = findViewById(R.id.ozon_bottom);
+                            RelativeLayout joomBottom = findViewById(R.id.joom_bottom);
                             joomBottom.setBackgroundResource(R.drawable.search_page_joom_bottom_background);
 
                             TextView joomRatingTextBlock = findViewById(R.id.reviewsText);
@@ -1626,13 +1699,13 @@ public class SearchActivity extends AppCompatActivity {
                             ConstraintLayout mtsBlock = findViewById(R.id.mts_block);
                             mtsBlock.setBackgroundResource(R.drawable.search_page_mts_shop_block_background);
 
-                            RelativeLayout mtsHeader = findViewById(R.id.ozon_header);
+                            RelativeLayout mtsHeader = findViewById(R.id.mts_header);
                             mtsHeader.setBackgroundResource(R.drawable.search_page_mts_shop_header_background);
 
-                            ImageView mtsImage = findViewById(R.id.ozon_image);
+                            ImageView mtsImage = findViewById(R.id.mts_image);
                             mtsImage.setBackgroundResource(R.drawable.search_page_mts_shop_image_stroke);
 
-                            RelativeLayout mtsBottom = findViewById(R.id.ozon_bottom);
+                            RelativeLayout mtsBottom = findViewById(R.id.mts_bottom);
                             mtsBottom.setBackgroundResource(R.drawable.search_page_mts_shop_bottom_background);
 
                             TextView mtsRatingTextBlock = findViewById(R.id.reviewsText);
@@ -1672,13 +1745,13 @@ public class SearchActivity extends AppCompatActivity {
                             ConstraintLayout technoparkBlock = findViewById(R.id.technopark_block);
                             technoparkBlock.setBackgroundResource(R.drawable.search_page_technopark_block_background);
 
-                            RelativeLayout technoparkHeader = findViewById(R.id.ozon_header);
+                            RelativeLayout technoparkHeader = findViewById(R.id.technopark_header);
                             technoparkHeader.setBackgroundResource(R.drawable.search_page_technopark_header_background);
 
-                            ImageView technoparkImage = findViewById(R.id.ozon_image);
+                            ImageView technoparkImage = findViewById(R.id.technopark_image);
                             technoparkImage.setBackgroundResource(R.drawable.search_page_technopark_image_stroke);
 
-                            RelativeLayout technoparkBottom = findViewById(R.id.ozon_bottom);
+                            RelativeLayout technoparkBottom = findViewById(R.id.technopark_bottom);
                             technoparkBottom.setBackgroundResource(R.drawable.search_page_technopark_bottom_background);
 
                             TextView technoparkRatingTextBlock = findViewById(R.id.reviewsText);

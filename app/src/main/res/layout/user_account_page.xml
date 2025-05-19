@@ -30,30 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
 
-    <TextView
-        android:id="@+id/nicknameTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22.86dp"
-        android:fontFamily="@font/jost"
-        android:text="@string/nickname_text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountTitle" />
-
-    <TextView
-        android:id="@+id/accountName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/jost"
-        android:text="@string/name_text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nicknameTitle" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deleteAccountConfirmationBlock"
         android:layout_width="277.71dp"
@@ -118,106 +94,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Блок смены пароля -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/changePasswordBlock"
-        android:layout_width="277.71dp"
-        android:layout_height="232.38dp"
-        android:background="@drawable/search_field_background"
-        android:visibility="gone"
-        android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/changePasswordTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Смена пароля"
-            android:textSize="16sp"
-            android:fontFamily="@font/jost"
-            android:textColor="@color/text_field_gray"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="17.14dp"/>
-
-        <EditText
-            android:id="@+id/oldPasswordInput"
-            android:layout_width="212.19dp"
-            android:layout_height="35.43dp"
-            android:layout_marginTop="12.19dp"
-            android:background="@drawable/mini_field_green_background"
-            android:fontFamily="@font/jost"
-            android:hint="Старый пароль"
-            android:inputType="textPassword"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textAlignment="center"
-            android:textColor="@color/text_field_gray"
-            android:textColorHint="@color/text_light_field_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/changePasswordTitle" />
-
-        <EditText
-            android:id="@+id/newPasswordInput"
-            android:layout_width="212.19dp"
-            android:layout_height="35.43dp"
-            android:layout_marginTop="20.19dp"
-            android:background="@drawable/mini_field_green_background"
-            android:fontFamily="@font/jost"
-            android:hint="Новый пароль"
-            android:inputType="textPassword"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textAlignment="center"
-            android:textColor="@color/text_field_gray"
-            android:textColorHint="@color/text_light_field_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/oldPasswordInput" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/changePasswordButton"
-            android:layout_width="79.24dp"
-            android:layout_height="30.48dp"
-            android:text="Сменить"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            android:fontFamily="@font/jost"
-            android:padding="0dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:backgroundTint="@color/additional_color"
-            app:cornerRadius="7.62dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="41.9dp"
-            android:layout_marginBottom="9.14dp"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/cancelPasswordChangeButton"
-            android:layout_width="79.24dp"
-            android:layout_height="30.48dp"
-            android:text="Отмена"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            android:fontFamily="@font/jost"
-            android:padding="0dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:backgroundTint="@color/additional_color"
-            app:cornerRadius="7.62dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="41.9dp"
-            android:layout_marginBottom="9.14dp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <LinearLayout
         android:id="@+id/buttonsContainer"
         android:layout_width="wrap_content"
@@ -227,36 +103,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-        <RelativeLayout
-            android:id="@+id/user_button_block"
-            android:layout_width="292.57dp"
-            android:layout_height="52.57dp"
-            android:backgroundTint="@color/but_gray"
-            android:background="@drawable/rounded_button_background"
-            android:paddingStart="11.43dp">
-
-            <ImageView
-                android:id="@+id/change_pass_icon_but"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:contentDescription="@string/change_data_desc"
-                app:srcCompat="@drawable/change_data_icon"
-                android:layout_alignParentStart="true"/>
-
-            <Button
-                android:id="@+id/accountButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/jost"
-                android:gravity="center"
-                android:text="@string/change_pass_but"
-                android:textColor="@color/text_field_gray"
-                android:textSize="18sp"
-                android:paddingStart="10dp"/>
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/settings_button_block"
@@ -277,13 +123,35 @@
                 android:layout_alignParentStart="true"/>
 
             <Button
-                android:id="@+id/appSettingsButton"
+                android:id="@+id/accDelSettingsButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/jost"
                 android:gravity="center"
                 android:text="@string/delete_account_but"
+                android:textColor="@color/text_field_gray"
+                android:textSize="18sp"
+                android:paddingStart="10dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/auth_button_block"
+            android:layout_width="292.57dp"
+            android:layout_height="52.57dp"
+            android:layout_marginTop="22.86dp"
+            android:backgroundTint="@color/but_gray"
+            android:background="@drawable/rounded_button_background"
+            android:paddingStart="11.43dp">
+
+            <Button
+                android:id="@+id/authSettingsButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/jost"
+                android:gravity="center"
+                android:text="@string/page_main"
                 android:textColor="@color/text_field_gray"
                 android:textSize="18sp"
                 android:paddingStart="10dp"/>
