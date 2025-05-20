@@ -69,7 +69,6 @@ import com.google.gson.Gson;
 public class SearchActivity extends AppCompatActivity {
     private EditText productEntryField;
     private ConstraintLayout rootLayout;
-    private ConstraintLayout filtersContainer;
     private ConstraintLayout hintsContainer;
     private NestedScrollView productsContainer;
     private boolean isSearchMode = false;
@@ -130,16 +129,9 @@ public class SearchActivity extends AppCompatActivity {
 
         productEntryField = findViewById(R.id.product_entry_field);
         rootLayout = findViewById(R.id.root_layout);
-        EditText priceFrom = findViewById(R.id.price_from);
-        EditText priceTo = findViewById(R.id.price_to);
-        ImageView checkboxNone = findViewById(R.id.checkbox_none);
-        ImageView filterIconBut = findViewById(R.id.filter_icon_but);
-        filtersContainer = findViewById(R.id.filters_container);
         hintsContainer = findViewById(R.id.hints_container);
         productsContainer = findViewById(R.id.products_container);
-        View closeButton = findViewById(R.id.close_button);
         View searchButton = findViewById(R.id.search_icon_green_but);
-
         ozon_logo_text = findViewById(R.id.ozon_logo_text);
         wb_logo_text = findViewById(R.id.wb_logo_text);
         yandex_logo_text = findViewById(R.id.yandex_logo_text);
@@ -250,7 +242,6 @@ public class SearchActivity extends AppCompatActivity {
 
         productsContainer.setVisibility(View.GONE);
         hintsContainer.setVisibility(View.VISIBLE);
-        filtersContainer.setVisibility(View.GONE);
 
 
         mainFullNavigationButton.setVisibility(View.GONE);
@@ -308,28 +299,6 @@ public class SearchActivity extends AppCompatActivity {
         productBlock.setClickable(false);
         productBlock.setVisibility(View.GONE);
 
-        filterIconBut.setOnClickListener(v -> {
-            if (filtersContainer.getVisibility() == View.VISIBLE) {
-                filtersContainer.setVisibility(View.GONE);
-            } else {
-                filtersContainer.setVisibility(View.VISIBLE);
-            }
-            hideFullNavigation();
-            deactivateSearchMode();
-        });
-
-        closeButton.setOnClickListener(v -> {
-            filtersContainer.setVisibility(View.GONE);
-        });
-
-        setupPriceField(priceFrom, "от ");
-        setupPriceField(priceTo, "до ");
-
-        priceFrom.setPadding(convertDpToPx(7.62f), priceFrom.getPaddingTop(),
-                priceFrom.getPaddingRight(), priceFrom.getPaddingBottom());
-        priceTo.setPadding(convertDpToPx(7.62f), priceTo.getPaddingTop(),
-                priceTo.getPaddingRight(), priceTo.getPaddingBottom());
-
         openLinkIcon.setOnClickListener(v -> openProductLinkInBrowser());
 
         productEntryField.setFocusable(false);
@@ -361,11 +330,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        checkboxNone.setOnClickListener(v -> {
-            isCheckboxChecked = !isCheckboxChecked;
-            checkboxNone.setImageResource(isCheckboxChecked ?
-                    R.drawable.checkbox_icon : R.drawable.empty_check_icon);
-        });
     }
 
     private void sendProductToApi(String marketplace) {
@@ -777,60 +741,6 @@ public class SearchActivity extends AppCompatActivity {
         mts_logo_text.setTextColor(grayColor);
         technopark_logo_text.setTextColor(grayColor);
         lamoda_logo_text.setTextColor(grayColor);
-    }
-
-    private void setupPriceField(EditText field, String prefix) {
-        field.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        field.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (isFormatting) return;
-
-                isFormatting = true;
-                try {
-                    String originalString = s.toString();
-                    String cleanString = originalString.replaceAll("[^\\d]", "");
-
-                    if (!cleanString.isEmpty()) {
-                        long parsed = Long.parseLong(cleanString);
-                        String formatted = formatNumber(parsed);
-                        String result = prefix + formatted + " ₽";
-
-                        if (!originalString.equals(result)) {
-                            field.setText(result);
-                            field.setSelection(result.length() - 2);
-                        }
-                    } else {
-                        field.setText("");
-                    }
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                } finally {
-                    isFormatting = false;
-                }
-            }
-        });
-
-        field.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN) {
-                EditText editText = (EditText) v;
-                int selectionStart = editText.getSelectionStart();
-                String text = editText.getText().toString();
-
-                if (selectionStart == text.length() - 1 && text.endsWith("₽")) {
-                    editText.setSelection(text.length() - 2);
-                    return true;
-                }
-            }
-            return false;
-        });
     }
 
     private String formatNumber(long number) {
